@@ -22,7 +22,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            text-align: left;
             position: relative;
         }
 
@@ -42,6 +42,9 @@
             z-index: 2;
             max-width: 80%;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             animation: fadeIn 1.5s ease-in-out;
         }
 
@@ -57,12 +60,17 @@
         }
 
         .pdc {
-            font-size: 3.5vw;
+            font-size: 4vw; /* Increased text size */
             font-weight: 200;
             letter-spacing: 1px;
             opacity: 0;
             animation: fadeSlide 1.8s ease-in-out forwards;
-            margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdc span {
+            display: block;
         }
 
         .pdc b {
@@ -72,18 +80,18 @@
         .link {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            gap: 6px;
             opacity: 0;
             animation: fadeSlide 2.2s ease-in-out forwards;
+            margin-top: 15px;
         }
 
         .link a {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             color: white;
-            font-size: 1.4vw;
+            font-size: 1vw; /* Much smaller email text */
             text-decoration: none;
             transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
         }
@@ -94,8 +102,8 @@
         }
 
         .email-icon {
-            width: 22px;
-            height: 22px;
+            height: 0.8em; /* Smaller icon */
+            width: auto; /* Maintain aspect ratio */
             fill: white;
             transition: transform 0.2s ease-in-out;
         }
@@ -118,16 +126,15 @@
 
         @media (max-width: 768px) {
             .pdc {
-                font-size: 6vw;
+                font-size: 6vw; /* Bigger on smaller screens */
             }
 
             .link a {
-                font-size: 3.5vw;
+                font-size: 2vw; /* Scales smaller email */
             }
 
             .email-icon {
-                width: 26px;
-                height: 26px;
+                height: 0.8em; /* Keeps icon small */
             }
         }
     </style>
@@ -135,9 +142,7 @@
 <body>
     <div class="bgimg">
         <div class="overlay"></div>
-        <div class="topleft">PDC</div>
-        <div class="content">
-            <p class="pdc"><b>P</b>eruna <b>D</b>eep <b>C</b>onsulting</p>
+        <div class="topleft">
             <div class="link">
                 <a href="mailto:info@pdc.ax">
                     <svg class="email-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -146,6 +151,13 @@
                     info@pdc.ax
                 </a>
             </div>
+        </div>
+        <div class="content">
+            <p class="pdc">
+                <span><b>P</b>eruna</span>
+                <span><b>D</b>eep</span>
+                <span><b>C</b>onsulting</span>
+            </p>
         </div>
     </div>
 </body>
