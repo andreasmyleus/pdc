@@ -1,89 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDC - Peruna Deep Consulting - Postad Digital Consulting</title>
-  </head>
-  <style>
-    body,
-    html {
-      height: 100%;
-      margin: 0;
-    }
+    <title>PDC - Peruna Deep Consulting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
 
-    .bgimg {
-      background-image: url("pexels-alex-conchillos-3745234_medium.jpg");
-      height: 100%;
-      background-position: center;
-      background-size: cover;
-      position: relative;
-      color: white;
-      font-family: "Courier New", Courier, monospace;
-    }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background: black;
+        }
 
-    .topleft {
-      position: absolute;
-      top: 0;
-      left: 16px;
-      font-size: 1.5rem;
-    }
+        .bgimg {
+            background: url("pexels-alex-conchillos-3745234_medium.jpg") no-repeat center center/cover;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
 
-    .bottomleft {
-      position: absolute;
-      bottom: 0;
-      left: 16px;
-    }
+        /* Dark overlay for improved contrast */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(1px);
+        }
 
-    .middle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 70%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      font-size: 1.8vh;
-    }
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 80%;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
 
-    hr {
-      margin: auto;
-      width: 30%;
-    }
+        .topleft {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            z-index: 2;
+            font-weight: 200;
+            opacity: 0;
+            animation: fadeSlide 1.5s ease-in-out forwards;
+        }
 
-    a {
-      color: white;
-    }
+        .pdc {
+            font-size: 3.5vw;
+            font-weight: 200;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeSlide 1.8s ease-in-out forwards;
+            margin-bottom: 5px;
+        }
 
-    .link {
-      margin: 30px;
-    }
+        .pdc b {
+            font-weight: 600; /* Bold effect for P, D, and C */
+        }
 
-    .pdc {
-      font-size: 2.5rem;
-      margin: 30px;
-    }
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeSlide 2.2s ease-in-out forwards;
+        }
 
-    .pdc-small {
-      font-size: 1.2rem;
-      margin: 30px;
-    }
-  </style>
-  <body>
+        .link a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.4vw;
+            text-decoration: none;
+            transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .link a:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .email-icon {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .link a:hover .email-icon {
+            transform: scale(1.1);
+        }
+
+        /* Smooth Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Staggered Fade + Slide-in Effect */
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .pdc {
+                font-size: 6vw;
+            }
+
+            .link a {
+                font-size: 3.5vw;
+            }
+
+            .email-icon {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
     <div class="bgimg">
-      <div class="topleft">
-        <p>PDC</p>
-      </div>
-      <div class="middle">
-        <p class="pdc">Peruna Deep Consulting</p>
-        <hr />
-        <div class="link">
-          info[a]pdc.ax
+        <div class="overlay"></div>
+        <div class="topleft">PDC</div>
+        <div class="content">
+            <p class="pdc"><b>P</b>eruna <b>D</b>eep <b>C</b>onsulting</p>
+            <div class="link">
+                <a href="mailto:info@pdc.ax">
+                    <svg class="email-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M22 4H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-1 2v.01L12 13 3 6.01V6h18zM3 18V8l8.99 6.99L21 8v10H3z"/>
+                    </svg>
+                    info@pdc.ax
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="bottomleft">
-        <p></p>
-      </div>
     </div>
-  </body>
+</body>
 </html>
