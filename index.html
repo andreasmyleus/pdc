@@ -113,6 +113,37 @@
             transform: scale(1.1);
         }
 
+        /* Social icons under the email */
+        .social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 10px;
+            margin-top: 8px;
+            opacity: 0;
+            animation: fadeSlide 2.4s ease-in-out forwards;
+        }
+
+        .social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.8em;
+            height: 1.8em;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .social a:hover { transform: scale(1.06); opacity: 0.9; }
+
+        .social-icon {
+            height: 1.4em;
+            width: 1.4em;
+            fill: white;
+        }
+
         /* Smooth Fade-in Animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -167,6 +198,18 @@
                         <path d="M22 4H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-1 2v.01L12 13 3 6.01V6h18zM3 18V8l8.99 6.99L21 8v10H3z"/>
                     </svg>
                     info@pdc.ax
+                </a>
+            </div>
+            <div class="social">
+                <a href="https://www.linkedin.com/in/andreas-myleus/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.22.792 24 1.771 24h20.451C23.2 24 24 23.22 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003zM6.765 20.452H3.911V9h2.854v11.452zM5.337 7.433a2.062 2.062 0 11.004-4.124 2.062 2.062 0 01-.004 4.124zM20.447 20.452h-3.554V14.8c0-1.348-.027-3.084-1.88-3.084-1.881 0-2.169 1.468-2.169 2.983v5.753H9.29V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.369-1.85 3.6 0 4.266 2.37 4.266 5.455v6.286z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/PerunaDeepConsulting" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24h11.495v-9.294H9.691V11.01h3.129V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.716-1.796 1.767v2.318h3.587l-.467 3.696h-3.12V24h6.116C23.407 24 24 23.407 24 22.674V1.326C24 .593 23.407 0 22.675 0z"/>
+                    </svg>
                 </a>
             </div>
         </div>
