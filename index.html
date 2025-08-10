@@ -256,6 +256,21 @@
             .partner-badge img {
                 height: clamp(84px, 28vw, 180px);
             }
+
+            /* Full-screen modal on mobile */
+            .modal-overlay { align-items: stretch; }
+            .modal-dialog {
+                width: 100vw;
+                height: 100dvh;
+                max-height: 100dvh;
+                border-radius: 0;
+                padding: max(16px, env(safe-area-inset-top)) 18px 24px 18px;
+                box-shadow: none;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+            }
+            .modal-close { top: 14px; right: 14px; font-size: 2rem; }
         }
 
         /* Extra Wide Screens (5K Ultrawide) */
@@ -279,7 +294,7 @@
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
             display: none;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
             z-index: 5;
             backdrop-filter: blur(2px);
@@ -289,25 +304,39 @@
             position: relative;
             background: rgba(20, 20, 20, 0.92);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 26px 28px 22px;
+            border-radius: 0;
+            padding: max(16px, env(safe-area-inset-top)) 22px max(28px, calc(env(safe-area-inset-bottom) + 20px)) 22px;
             color: #fff;
-            width: min(92vw, 760px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100vw;
+            height: 100dvh;
+            max-height: 100dvh;
+            box-shadow: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+        .modal-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: left;
+            padding-inline: 8px;
         }
         .modal-dialog h2 { margin: 0 0 12px; font-weight: 600; font-size: clamp(20px, 2.2vw, 26px); }
         .modal-dialog p { margin: 10px 0; line-height: 1.65; font-size: clamp(14px, 1.55vw, 17px); }
         .modal-close {
             position: absolute;
-            top: 8px;
-            right: 10px;
+            top: 12px;
+            right: 14px;
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 1.6rem;
+            font-size: 2rem;
             cursor: pointer;
             line-height: 1;
         }
+
+        /* Lock background scroll when modal is open */
+        body.no-scroll { overflow: hidden; }
 
         /* Modal links */
         .modal-links {
@@ -315,7 +344,9 @@
             align-items: center;
             gap: 16px;
             margin-top: 12px;
+            margin-bottom: 200px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         .modal-links a {
             display: inline-flex;
@@ -377,6 +408,7 @@
         <div class="modal-overlay" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-describedby="about-desc">
             <div class="modal-dialog">
                 <button class="modal-close" id="about-close" aria-label="Stäng">×</button>
+            <div class="modal-inner">
                 <h2 id="about-title">Peruna Deep Consulting Ab (3445914-3)</h2>
                 <p id="about-desc" class="modal-muted">Grundat januari 2023 på Åland av Andreas Myleus.</p>
                 <p>Vi levererar professionella tjänster inom:</p>
@@ -425,6 +457,7 @@
                     </a>
                 </div>
             </div>
+            </div>
         </div>
     </div>
 </body>
@@ -434,8 +467,8 @@
     const modal = document.getElementById('about-modal');
     const closeBtn = document.getElementById('about-close');
 
-    function openModal(){ modal.classList.add('active'); closeBtn.focus(); }
-    function closeModal(){ modal.classList.remove('active'); trigger.focus(); }
+    function openModal(){ modal.classList.add('active'); document.body.classList.add('no-scroll'); closeBtn.focus(); }
+    function closeModal(){ modal.classList.remove('active'); document.body.classList.remove('no-scroll'); trigger.focus(); }
 
     trigger.addEventListener('click', openModal);
     trigger.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(); }});
