@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDC - Peruna Deep Consulting</title>
+    <title>Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning</title>
+    <link rel="canonical" href="https://pdc.ax/" />
+    <link rel="alternate" href="https://pdc.ax/" hreflang="sv-SE" />
+    <link rel="alternate" href="https://pdc.ax/" hreflang="x-default" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Peruna Deep Consulting erbjuder konsult-, bemannings-, utbildnings- och inspektionstjänster inom IT, teknik, flyg och dykning. Grundat av Andreas Myleus." />
+    <meta name="author" content="Andreas Myleus" />
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Peruna Deep Consulting" />
+    <meta property="og:title" content="Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning" />
+    <meta property="og:description" content="Peruna Deep Consulting erbjuder konsult-, bemannings-, utbildnings- och inspektionstjänster inom IT, teknik, flyg och dykning. Grundat av Andreas Myleus." />
+    <meta property="og:url" content="https://pdc.ax/" />
+    <meta property="og:image" content="https://pdc.ax/pexels-alex-conchillos-3745234_medium.jpg" />
+    <meta property="og:locale" content="sv_SE" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning" />
+    <meta name="twitter:description" content="Peruna Deep Consulting erbjuder konsult-, bemannings-, utbildnings- och inspektionstjänster inom IT, teknik, flyg och dykning. Grundat av Andreas Myleus." />
+    <meta name="twitter:image" content="https://pdc.ax/pexels-alex-conchillos-3745234_medium.jpg" />
+    <meta name="theme-color" content="#000000" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Peruna Deep Consulting",
+      "url": "https://pdc.ax/",
+      "email": "info@pdc.ax",
+      "description": "Föremålet för bolagets verksamhet är att erbjuda konsult-, bemannings-, utbildnings- och inspektionstjänster, främst inom IT-, teknik-, flyg- och dykbranschen.",
+      "foundingDate": "2024-05-07",
+      "areaServed": "Global",
+      "sameAs": [
+        "https://www.linkedin.com/in/andreas-myleus/",
+        "https://www.facebook.com/PerunaDeepConsulting"
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Andreas Myleus",
+        "sameAs": ["https://www.linkedin.com/in/andreas-myleus/"]
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "info@pdc.ax",
+        "availableLanguage": ["sv", "en"]
+      }],
+      "knowsAbout": ["IT", "Teknik", "Flyg", "Dykning", "Konsult", "Bemanning", "Utbildning", "Inspektion"]
+    }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
 
@@ -68,6 +122,7 @@
             animation: fadeSlide 1.8s ease-in-out forwards;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
         .pdc span {
@@ -120,7 +175,7 @@
             justify-content: center;
             width: 100%;
             gap: 10px;
-            margin-top: 8px;
+            margin-top: 16px;
             opacity: 0;
             animation: fadeSlide 2.4s ease-in-out forwards;
         }
@@ -143,6 +198,25 @@
             width: 1.4em;
             fill: white;
         }
+
+        /* Partner/Logo badge placed under company name */
+        .partner-badge {
+            position: relative;
+            z-index: 2;
+            margin-top: 12px;
+            opacity: 0;
+            animation: fadeSlide 2.6s ease-in-out forwards;
+            align-self: center;
+        }
+        .partner-badge a { display: inline-block; }
+        .partner-badge img {
+            height: clamp(48px, 10vw, 140px);
+            width: auto;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+            opacity: 0.95;
+            transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .partner-badge a:hover img { transform: scale(1.04); opacity: 1; }
 
         /* Smooth Fade-in Animation */
         @keyframes fadeIn {
@@ -169,6 +243,11 @@
             .email-icon {
                 height: 1.2em; /* Larger email icon */
             }
+
+            /* Larger res.ax logo on mobile */
+            .partner-badge img {
+                height: clamp(84px, 28vw, 180px);
+            }
         }
 
         /* Extra Wide Screens (5K Ultrawide) */
@@ -184,6 +263,42 @@
             .email-icon {
                 height: 1em; /* Keeps it proportional */
             }
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease-in; }
+        .modal-dialog {
+            position: relative;
+            background: rgba(20, 20, 20, 0.92);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 22px 22px 18px;
+            color: #fff;
+            width: min(92vw, 640px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .modal-dialog h2 { margin: 0 0 10px; font-weight: 600; font-size: clamp(18px, 2.2vw, 24px); }
+        .modal-dialog p { margin: 8px 0; line-height: 1.5; font-size: clamp(14px, 1.6vw, 16px); }
+        .modal-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            line-height: 1;
         }
 
     </style>
@@ -219,7 +334,13 @@
                 <span><b>D</b>eep</span>
                 <span><b>C</b>onsulting</span>
             </p>
+            <div class="partner-badge">
+                <a href="https://res.ax" target="_blank" rel="noopener noreferrer" aria-label="res.ax">
+                    <img src="resax.png" alt="res.ax" loading="lazy" decoding="async" />
+                </a>
+            </div>
         </div>
+        
     </div>
 </body>
 </html>
