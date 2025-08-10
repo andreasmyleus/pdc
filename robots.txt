@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap
+Sitemap: https://pdc.ax/sitemap.xml
+
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap
+Sitemap: https://pdc.ax/sitemap.xml
+
+
