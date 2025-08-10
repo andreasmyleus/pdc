@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning</title>
+    <title>Peruna Deep Consulting – Konsult inom IT, teknik, flyg och dykning</title>
     <link rel="canonical" href="https://pdc.ax/" />
     <link rel="alternate" href="https://pdc.ax/" hreflang="sv-SE" />
     <link rel="alternate" href="https://pdc.ax/" hreflang="x-default" />
@@ -19,7 +19,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Peruna Deep Consulting" />
-    <meta property="og:title" content="Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning" />
+    <meta property="og:title" content="Peruna Deep Consulting – Konsult inom IT, teknik, flyg och dykning" />
     <meta property="og:description" content="Peruna Deep Consulting erbjuder konsult-, bemannings-, utbildnings- och inspektionstjänster inom IT, teknik, flyg och dykning. Grundat av Andreas Myleus." />
     <meta property="og:url" content="https://pdc.ax/" />
     <meta property="og:image" content="https://pdc.ax/pexels-alex-conchillos-3745234_medium.jpg" />
@@ -27,7 +27,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Peruna Deep Consulting – Konsult och inspektion inom IT, teknik, flyg och dykning" />
+    <meta name="twitter:title" content="Peruna Deep Consulting – Konsult inom IT, teknik, flyg och dykning" />
     <meta name="twitter:description" content="Peruna Deep Consulting erbjuder konsult-, bemannings-, utbildnings- och inspektionstjänster inom IT, teknik, flyg och dykning. Grundat av Andreas Myleus." />
     <meta name="twitter:image" content="https://pdc.ax/pexels-alex-conchillos-3745234_medium.jpg" />
     <meta name="theme-color" content="#000000" />
@@ -40,7 +40,7 @@
       "url": "https://pdc.ax/",
       "email": "info@pdc.ax",
       "description": "Föremålet för bolagets verksamhet är att erbjuda konsult-, bemannings-, utbildnings- och inspektionstjänster, främst inom IT-, teknik-, flyg- och dykbranschen.",
-      "foundingDate": "2024-05-07",
+      "foundingDate": "2023-01-01",
       "areaServed": "Global",
       "sameAs": [
         "https://www.linkedin.com/in/andreas-myleus/",
@@ -118,11 +118,12 @@
             font-size: 4vw; /* Default for desktops */
             font-weight: 200;
             letter-spacing: 1px;
-            opacity: 0;
-            animation: fadeSlide 1.8s ease-in-out forwards;
+            opacity: 1;
             display: flex;
             flex-direction: column;
             cursor: pointer;
+            transition: transform 0.15s ease-out, opacity 0.3s ease-in-out, text-shadow 0.15s ease-out, filter 0.15s ease-out;
+            will-change: transform;
         }
 
         .pdc span {
@@ -132,6 +133,13 @@
         .pdc b {
             font-weight: 600; /* Bold effect for P, D, and C */
         }
+
+        .pdc:hover { transform: scale(1.1); filter: drop-shadow(0 6px 24px rgba(255,255,255,0.18)); }
+        .pdc:active { transform: scale(1.02); }
+        .pdc:focus { outline: none; transform: scale(1.03); }
+
+        /* Subtle glow on hover for better pop */
+        .pdc:hover span { text-shadow: 0 3px 18px rgba(255,255,255,0.35); }
 
         .link {
             display: flex;
@@ -282,13 +290,13 @@
             background: rgba(20, 20, 20, 0.92);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
-            padding: 22px 22px 18px;
+            padding: 26px 28px 22px;
             color: #fff;
-            width: min(92vw, 640px);
+            width: min(92vw, 760px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .modal-dialog h2 { margin: 0 0 10px; font-weight: 600; font-size: clamp(18px, 2.2vw, 24px); }
-        .modal-dialog p { margin: 8px 0; line-height: 1.5; font-size: clamp(14px, 1.6vw, 16px); }
+        .modal-dialog h2 { margin: 0 0 12px; font-weight: 600; font-size: clamp(20px, 2.2vw, 26px); }
+        .modal-dialog p { margin: 10px 0; line-height: 1.65; font-size: clamp(14px, 1.55vw, 17px); }
         .modal-close {
             position: absolute;
             top: 8px;
@@ -300,6 +308,31 @@
             cursor: pointer;
             line-height: 1;
         }
+
+        /* Modal links */
+        .modal-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .modal-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: underline;
+        }
+        .modal-icon { height: 1.1em; width: 1.1em; fill: #fff; }
+        .modal-divider { border: none; height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+        .modal-muted { color: rgba(255,255,255,0.78); }
+        .modal-list { margin: 8px 0 0 0; padding-left: 18px; }
+        .modal-list li { margin: 4px 0; }
+        .modal-divider { border: none; height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+        .modal-muted { color: rgba(255,255,255,0.75); }
+        .modal-list { margin: 8px 0 0 0; padding-left: 18px; }
+        .modal-list li { margin: 4px 0; }
 
     </style>
 </head>
@@ -329,7 +362,7 @@
             </div>
         </div>
         <div class="content">
-            <p class="pdc">
+            <p class="pdc" id="about-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="about-modal" aria-label="Om Peruna Deep Consulting">
                 <span><b>P</b>eruna</span>
                 <span><b>D</b>eep</span>
                 <span><b>C</b>onsulting</span>
@@ -341,6 +374,74 @@
             </div>
         </div>
         
+        <div class="modal-overlay" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-describedby="about-desc">
+            <div class="modal-dialog">
+                <button class="modal-close" id="about-close" aria-label="Stäng">×</button>
+                <h2 id="about-title">Peruna Deep Consulting Ab (3445914-3)</h2>
+                <p id="about-desc" class="modal-muted">Grundat januari 2023 på Åland av Andreas Myleus.</p>
+                <p>Vi levererar professionella tjänster inom:</p>
+                <ul class="modal-list">
+                    <li>IT och teknik – konsultstöd, utveckling och expertis</li>
+                    <li>Bemanning – flexibel resursförstärkning</li>
+                    <li>Drönar- och dyktjänster</li>
+                </ul>
+                <hr class="modal-divider" />
+                <p><strong>Om Andreas</strong></p>
+                <p class="modal-muted">Senior mjukvaruutvecklare, civilingenjör i flygteknik och kommersiell helikopter‑ & drönarpilot. Bred erfarenhet från energi, fintech, logistik och industri.</p>
+                <p class="modal-muted">Bygger produkter end‑to‑end – från idé till drift. Grundare av <a href="https://res.ax" target="_blank" rel="noopener" style="color:#fff; text-decoration:underline;">res.ax</a>.</p>
+                <p><strong>Uppdrag</strong></p>
+                <ul class="modal-list">
+                    <li>Stockholm Exergi – Software Developer (energi/automation)</li>
+                    <li>Better Truckin’ – Senior Full‑Stack Developer (transport/TMS)</li>
+                </ul>
+                <p><strong>Erfarenheter – highlights</strong></p>
+                <ul class="modal-list">
+                    <li>ESA astronaututtagning – finalist (topp ~400 av 22 523)</li>
+                    <li>UMS SKELDAR – Flygprovsingenjör & drönarpilot (UAS)</li>
+                    <li>Saab – Styrsystemingenjör (JAS 39 Gripen)</li>
+                    <li>Crosskey – Application Manager/Full‑stack</li>
+                    <li>Enfuce – Data Engineer</li>
+                    <li>Högskolan på Åland – Lektor i teknik</li>
+                </ul>
+                <p><strong>Utbildning & licenser</strong></p>
+                <ul class="modal-list">
+                    <li>KTH – MSc Flygteknik; BSc Mekatronik</li>
+                    <li>Körkort – A, BE, CE, D1E; Snöskoter</li>
+                    <li>EASA – CPL(H) (helikopter); A1/A2/A3 (drönare)</li>
+                    <li>PADI – Advanced Open Water, Nitrox, Torrdräkt</li>
+                </ul>
+                <div class="modal-links">
+                    <a href="mailto:info@pdc.ax">
+                        <svg class="modal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 4H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-1 2v.01L12 13 3 6.01V6h18zM3 18V8l8.99 6.99L21 8v10H3z"/>
+                        </svg>
+                        info@pdc.ax
+                    </a>
+                    <a href="https://www.linkedin.com/in/andreas-myleus/" target="_blank" rel="noopener noreferrer">
+                        <svg class="modal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.22.792 24 1.771 24h20.451C23.2 24 24 23.22 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003zM6.765 20.452H3.911V9h2.854v11.452zM5.337 7.433a2.062 2.062 0 11.004-4.124 2.062 2.062 0 01-.004 4.124zM20.447 20.452h-3.554V14.8c0-1.348-.027-3.084-1.88-3.084-1.881 0-2.169 1.468-2.169 2.983v5.753H9.29V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.369-1.85 3.6 0 4.266 2.37 4.266 5.455v6.286z"/>
+                        </svg>
+                        CV på LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+<script>
+  (function(){
+    const trigger = document.getElementById('about-trigger');
+    const modal = document.getElementById('about-modal');
+    const closeBtn = document.getElementById('about-close');
+
+    function openModal(){ modal.classList.add('active'); closeBtn.focus(); }
+    function closeModal(){ modal.classList.remove('active'); trigger.focus(); }
+
+    trigger.addEventListener('click', openModal);
+    trigger.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(); }});
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal){ closeModal(); }});
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('active')){ closeModal(); }});
+  })();
+</script>
 </html>
