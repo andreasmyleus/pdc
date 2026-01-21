@@ -219,10 +219,18 @@
         .partner-badge a { display: inline-block; }
         .partner-badge img {
             height: clamp(48px, 10vw, 140px);
+            max-height: clamp(48px, 10vw, 140px);
             width: auto;
+            object-fit: contain;
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
             opacity: 0.95;
             transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+            border-radius: 12px;
+        }
+        .partner-badge img.small-logo {
+            height: clamp(28px, 5vw, 72px);
+            max-height: clamp(28px, 5vw, 72px);
+            border-radius: 8px;
         }
         .partner-badge a:hover img { transform: scale(1.04); opacity: 1; }
 
@@ -401,6 +409,11 @@
             <div class="partner-badge">
                 <a href="https://res.ax" target="_blank" rel="noopener noreferrer" aria-label="res.ax">
                     <img src="resax.png" alt="res.ax" loading="lazy" decoding="async" />
+                </a>
+            </div>
+            <div class="partner-badge">
+                <a href="https://korgen.ax" target="_blank" rel="noopener noreferrer" aria-label="korgen.ax">
+                    <img src="korgen.png" alt="korgen.ax" loading="lazy" decoding="async" class="small-logo" />
                 </a>
             </div>
         </div>
