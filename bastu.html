@@ -9,6 +9,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+        :root {
+            --hour-height: 40px;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -81,7 +85,7 @@
         }
 
         .time-label {
-            height: 40px;
+            height: var(--hour-height);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -96,7 +100,7 @@
         }
 
         .hour-line {
-            height: 40px;
+            height: var(--hour-height);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -315,27 +319,113 @@
         }
 
         @media (max-width: 768px) {
+            :root {
+                --hour-height: 32px;
+            }
+
+            .calendar-container {
+                overflow-x: visible;
+            }
+
             .calendar {
-                min-width: 600px;
+                min-width: 0;
+                grid-template-columns: 32px repeat(7, 1fr);
+                gap: 0;
             }
             
             .calendar-header {
-                font-size: 0.75rem;
-                padding: 10px 2px;
+                font-size: 0.65rem;
+                padding: 8px 2px;
+            }
+
+            .time-column {
+                font-size: 0.55rem;
+            }
+
+            .time-label {
+                font-size: 0.55rem;
             }
 
             .event {
-                font-size: 0.6rem;
+                font-size: 0.5rem;
+                padding: 2px 3px;
+                left: 1px;
+                right: 1px;
+                border-radius: 4px;
             }
 
             .event-time {
-                font-size: 0.55rem;
+                font-size: 0.45rem;
             }
 
             .status-box {
                 min-width: auto;
                 width: 100%;
-                max-width: 320px;
+                max-width: 280px;
+                padding: 12px 16px;
+                margin-bottom: 16px;
+            }
+
+            .status-indicator {
+                gap: 8px;
+                margin-bottom: 4px;
+            }
+
+            .status-dot {
+                width: 12px;
+                height: 12px;
+            }
+
+            .status-text {
+                font-size: 1rem;
+            }
+
+            .countdown-label {
+                font-size: 0.75rem;
+                margin-top: 4px;
+            }
+
+            .countdown {
+                font-size: 1.4rem;
+            }
+
+            .current-time {
+                font-size: 0.7rem;
+                margin-top: 8px;
+            }
+
+            .now-line::before {
+                width: 6px;
+                height: 6px;
+                left: -2px;
+                top: -2px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            :root {
+                --hour-height: 28px;
+            }
+
+            .calendar {
+                grid-template-columns: 28px repeat(7, 1fr);
+            }
+
+            .calendar-header {
+                font-size: 0.55rem;
+                padding: 6px 1px;
+            }
+
+            .time-label {
+                font-size: 0.5rem;
+            }
+
+            .event {
+                font-size: 0.45rem;
+            }
+
+            .event-time {
+                font-size: 0.4rem;
             }
         }
     </style>
@@ -393,13 +483,13 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
-                <!-- 08:30-12:00 = top: 0.5*40=20px, height: 3.5*40=140px -->
-                <div class="event morning" style="top: 20px; height: 140px;">
+                <!-- 08:30-12:00 -->
+                <div class="event morning" style="top: calc(0.5 * var(--hour-height)); height: calc(3.5 * var(--hour-height));">
                     <span>08:30</span>
                     <span class="event-time">12:00</span>
                 </div>
-                <!-- 16:30-21:00 = top: 8.5*40=340px, height: 4.5*40=180px -->
-                <div class="event evening" style="top: 340px; height: 180px;">
+                <!-- 16:30-21:00 -->
+                <div class="event evening" style="top: calc(8.5 * var(--hour-height)); height: calc(4.5 * var(--hour-height));">
                     <span>16:30</span>
                     <span class="event-time">21:00</span>
                 </div>
@@ -412,13 +502,13 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
-                <!-- 09:30-12:00 = top: 1.5*40=60px, height: 2.5*40=100px -->
-                <div class="event morning" style="top: 60px; height: 100px;">
+                <!-- 09:30-12:00 -->
+                <div class="event morning" style="top: calc(1.5 * var(--hour-height)); height: calc(2.5 * var(--hour-height));">
                     <span>09:30</span>
                     <span class="event-time">12:00</span>
                 </div>
                 <!-- 16:30-21:00 -->
-                <div class="event evening" style="top: 340px; height: 180px;">
+                <div class="event evening" style="top: calc(8.5 * var(--hour-height)); height: calc(4.5 * var(--hour-height));">
                     <span>16:30</span>
                     <span class="event-time">21:00</span>
                 </div>
@@ -432,12 +522,12 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
                 <!-- 08:30-12:00 -->
-                <div class="event morning" style="top: 20px; height: 140px;">
+                <div class="event morning" style="top: calc(0.5 * var(--hour-height)); height: calc(3.5 * var(--hour-height));">
                     <span>08:30</span>
                     <span class="event-time">12:00</span>
                 </div>
                 <!-- 16:30-21:00 -->
-                <div class="event evening" style="top: 340px; height: 180px;">
+                <div class="event evening" style="top: calc(8.5 * var(--hour-height)); height: calc(4.5 * var(--hour-height));">
                     <span>16:30</span>
                     <span class="event-time">21:00</span>
                 </div>
@@ -451,12 +541,12 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
                 <!-- 09:30-12:00 -->
-                <div class="event morning" style="top: 60px; height: 100px;">
+                <div class="event morning" style="top: calc(1.5 * var(--hour-height)); height: calc(2.5 * var(--hour-height));">
                     <span>09:30</span>
                     <span class="event-time">12:00</span>
                 </div>
                 <!-- 16:30-21:00 -->
-                <div class="event evening" style="top: 340px; height: 180px;">
+                <div class="event evening" style="top: calc(8.5 * var(--hour-height)); height: calc(4.5 * var(--hour-height));">
                     <span>16:30</span>
                     <span class="event-time">21:00</span>
                 </div>
@@ -470,12 +560,12 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
                 <!-- 08:30-12:00 -->
-                <div class="event morning" style="top: 20px; height: 140px;">
+                <div class="event morning" style="top: calc(0.5 * var(--hour-height)); height: calc(3.5 * var(--hour-height));">
                     <span>08:30</span>
                     <span class="event-time">12:00</span>
                 </div>
-                <!-- 16:30-19:00 = top: 340px, height: 2.5*40=100px -->
-                <div class="event evening" style="top: 340px; height: 100px;">
+                <!-- 16:30-19:00 -->
+                <div class="event evening" style="top: calc(8.5 * var(--hour-height)); height: calc(2.5 * var(--hour-height));">
                     <span>16:30</span>
                     <span class="event-time">19:00</span>
                 </div>
@@ -488,8 +578,8 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
-                <!-- 10:30-14:00 = top: 2.5*40=100px, height: 3.5*40=140px -->
-                <div class="event morning" style="top: 100px; height: 140px;">
+                <!-- 10:30-14:00 -->
+                <div class="event morning" style="top: calc(2.5 * var(--hour-height)); height: calc(3.5 * var(--hour-height));">
                     <span>10:30</span>
                     <span class="event-time">14:00</span>
                 </div>
@@ -502,8 +592,8 @@
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div><div class="hour-line"></div>
                 <div class="hour-line"></div><div class="hour-line"></div>
-                <!-- 11:30-14:00 = top: 3.5*40=140px, height: 2.5*40=100px -->
-                <div class="event morning" style="top: 140px; height: 100px;">
+                <!-- 11:30-14:00 -->
+                <div class="event morning" style="top: calc(3.5 * var(--hour-height)); height: calc(2.5 * var(--hour-height));">
                     <span>11:30</span>
                     <span class="event-time">14:00</span>
                 </div>
@@ -653,7 +743,7 @@
         // Format current Mariehamn time
         const timeStr = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         const dateStr = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
-        currentTime.textContent = `Mariehamn: ${dateStr}, ${timeStr}`;
+        currentTime.innerHTML = `Mariehamn:<br>${dateStr}, ${timeStr}`;
     }
 
     // Update calendar with current time indicator
@@ -663,10 +753,12 @@
         const currentHour = now.getHours();
         const currentMinute = now.getMinutes();
         
-        // Calendar starts at 08:00, each hour is 40px
+        // Calendar starts at 08:00
         const startHour = 8;
         const endHour = 22; // 21:00 + 1 hour buffer
-        const hourHeight = 40;
+        
+        // Get hour height from CSS variable
+        const hourHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour-height')) || 40;
         
         // Calculate position of now-line
         const hoursFromStart = currentHour - startHour + (currentMinute / 60);
