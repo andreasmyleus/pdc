@@ -129,7 +129,7 @@
         display: flex; flex-direction: column; gap: 2px;
         font-family: var(--serif);
         font-weight: 400;
-        font-size: clamp(68px, 12vw, 164px);
+        font-size: clamp(60px, 10vw, 140px);
         line-height: 0.95;
         letter-spacing: -0.025em;
         text-align: left;
@@ -193,7 +193,10 @@
         padding: 12px 22px;
         border: 1px solid var(--line-2);
         border-radius: 999px;
-        color: var(--fg); cursor: pointer; background: transparent;
+        color: var(--fg); cursor: pointer;
+        background: rgba(20, 20, 20, 0.55);
+        backdrop-filter: blur(44px) saturate(1.8);
+        -webkit-backdrop-filter: blur(44px) saturate(1.8);
         transition: all 0.25s ease;
         position: relative; overflow: hidden;
       }
@@ -262,11 +265,14 @@
       }
       .socials { display: flex; gap: 10px; align-items: center; }
       .social-link {
-        display: inline-flex; align-items: center; gap: 10px;
-        padding: 8px 16px 8px 8px;
+        display: inline-flex; align-items: center;
+        padding: 6px;
         border: 1px solid var(--line-2);
         border-radius: 999px;
         color: var(--fg-dim);
+        background: rgba(20, 20, 20, 0.55);
+        backdrop-filter: blur(44px) saturate(1.8);
+        -webkit-backdrop-filter: blur(44px) saturate(1.8);
         transition: all 0.25s;
         font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
       }
@@ -337,8 +343,12 @@
       }
       html[data-theme="mono-light"] .earth-img { opacity: 0.9; }
       @media (max-width: 760px) {
-        .earth-scene { height: 50vh; }
-        .earth-img { width: 170vw; height: 170vw; bottom: -115vw; }
+        .earth-img {
+          width: 160vw; height: 160vw;
+          bottom: -90vw;
+          -webkit-mask-image: radial-gradient(circle 76vw at 50% 50%, black 98%, transparent 100%);
+                  mask-image: radial-gradient(circle 76vw at 50% 50%, black 98%, transparent 100%);
+        }
       }
 
       body::before {
@@ -565,7 +575,7 @@
         .scene { padding: 20px 18px 28px; gap: 28px; }
         .top { font-size: 10px; gap: 10px; flex-wrap: wrap; }
         .center { gap: 36px; padding: 20px 0; }
-        .word-stack { font-size: clamp(54px, 16vw, 92px); }
+        .word-stack { font-size: clamp(180px, 42vw, 260px); white-space: nowrap; }
         .nav-pills { gap: 8px; }
         .pill { padding: 10px 16px; font-size: 10px; letter-spacing: 0.12em; }
         .v-card { padding: 10px 18px 10px 12px; gap: 10px; }
@@ -579,7 +589,7 @@
         }
         .bottom .mail { font-size: 20px; }
         .contact-row { justify-content: center; gap: 14px; }
-        .social-link { padding: 6px 14px 6px 6px; font-size: 10px; }
+        .social-link { padding: 5px; }
         .social-link .s-ico { width: 26px; height: 26px; }
         .modal { padding: 28px 12px 12px; }
         .modal .sheet { padding: 0 22px 32px; max-height: calc(100dvh - 40px); }
@@ -636,17 +646,15 @@
     <div class="contact-row">
       <a class="mail" href="mailto:info@pdc.ax">info<em>@</em>pdc<em>.</em>ax</a>
       <div class="socials">
-        <a class="social-link" href="https://www.linkedin.com/in/andreas-myleus/" target="_blank" rel="noopener">
+        <a class="social-link" href="https://www.linkedin.com/in/andreas-myleus/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <span class="s-ico">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
           </span>
-          <span class="s-label">LinkedIn</span>
         </a>
-        <a class="social-link" href="https://www.facebook.com/PerunaDeepConsulting" target="_blank" rel="noopener">
+        <a class="social-link" href="https://www.facebook.com/PerunaDeepConsulting" target="_blank" rel="noopener" aria-label="Facebook">
           <span class="s-ico">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 24V13.06h3.67l.55-4.26H13.4V6.08c0-1.23.34-2.07 2.1-2.07h2.25V.17C17.36.12 16.03 0 14.48 0c-3.24 0-5.46 1.98-5.46 5.61V8.8H5.34v4.26h3.68V24h4.38z"/></svg>
           </span>
-          <span class="s-label">Facebook</span>
         </a>
       </div>
     </div>
