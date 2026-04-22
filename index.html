@@ -404,7 +404,8 @@
       }
       .port-card:hover { border-color: var(--fg-dim); transform: translateY(-2px); }
       .port-card .plogo {
-        width: 160px; height: 160px;
+        width: 100%;
+        aspect-ratio: 1 / 1;
         display: flex; align-items: center; justify-content: center;
         background: transparent;
         box-shadow: none;
@@ -412,7 +413,7 @@
         overflow: visible;
       }
       .port-card .plogo img { width: 100%; height: 100%; object-fit: contain; padding: 0; background: transparent; }
-      .port-card .plogo img.rounded { border-radius: 40px; }
+      .port-card .plogo img.rounded { border-radius: 12%; }
       .port-card h4 { font-family: var(--serif); font-size: 28px; font-weight: 400; line-height: 1; letter-spacing: -0.01em; }
       .port-card h4 em { font-style: italic; color: var(--fg-dim); }
       .port-card p { color: var(--fg-dim); font-size: 14px; text-wrap: pretty; }
@@ -504,7 +505,6 @@
 <div class="bg">
   <canvas class="stars" id="stars"></canvas>
   <div class="glow"></div>
-  <div class="horizon"></div>
 </div>
 
 <main class="scene">
@@ -634,10 +634,13 @@
     <section>
       <h3>Stack</h3>
       <ul>
-        <li><span class="k">Språk</span><span class="v">TypeScript · Python · Rust · C# · Go</span></li>
-        <li><span class="k">Data</span><span class="v">Postgres · dbt · Airflow · AWS / GCP</span></li>
-        <li><span class="k">Domän</span><span class="v">Energi · Fintech · Logistik · Industri · UAS</span></li>
-        <li><span class="k">AI-assisterat</span><span class="v">Claude · Copilot · Cursor. AI-assisterad utveckling för högre hastighet och kvalitet, med människan i loopen</span></li>
+        <li><span class="k">Språk</span><span class="v">TypeScript · Python · Java · JavaScript · SQL · C / C++</span></li>
+        <li><span class="k">Ramverk</span><span class="v">Django · FastAPI · Flask · Angular · Node.js · Spring · Ionic</span></li>
+        <li><span class="k">Data &amp; moln</span><span class="v">AWS · Snowflake · Docker · Linux · Git · Cypress · CircleCI · Jenkins</span></li>
+        <li><span class="k">Ingenjör</span><span class="v">Embedded · Flight Control · Matlab / Simulink · Systems Engineering</span></li>
+        <li><span class="k">Domän</span><span class="v">Energi · Fintech · Logistik · Aerospace / UAS · IoT</span></li>
+        <li><span class="k">Talade språk</span><span class="v">Svenska · Engelska · Franska · Finska</span></li>
+        <li><span class="k">AI-assisterat</span><span class="v">AI-assisterad utveckling för högre hastighet och kvalitet, med människan i loopen</span></li>
       </ul>
     </section>
 
@@ -659,13 +662,13 @@
       <a class="port-card" href="https://res.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="resax.png" alt="res.ax"></span>
         <h4>res<em>.ax</em></h4>
-        <p>Reseplattform för Åland: söka, boka och betala färja, hotell och aktiviteter på ett ställe.</p>
+        <p>Ålands reseportal. Samlar färjetider, boende och upplevelser så du hittar och planerar din resa på ett ställe.</p>
         <span class="go">Besök res.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://korgen.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="korgen.png" alt="korgen.ax" class="rounded"></span>
         <h4>korgen<em>.ax</em></h4>
-        <p>Lokal matkasse och dagligvaror med leverans på Åland.</p>
+        <p>Ålands digitala torg. Handla mat och hantverk från lokala producenter och få allt levererat hem.</p>
         <span class="go">Besök korgen.ax <span class="arr">→</span></span>
       </a>
     </div>
