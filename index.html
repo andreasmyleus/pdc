@@ -67,8 +67,8 @@
 
     <style>
       :root {
-        --bg: #0a0a0a;
-        --bg-2: #141414;
+        --bg: #000000;
+        --bg-2: #0a0a0a;
         --fg: #f6f6f6;
         --fg-dim: #a8a8a8;
         --fg-faint: #6a6a6a;
@@ -346,8 +346,8 @@
         display: block;
         user-select: none;
         -webkit-user-drag: none;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
-                mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 6%, black 20%);
+                mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 6%, black 20%);
       }
       @keyframes earthGlow {
         from { opacity: 0.75; transform: translateX(-50%) scale(0.98); }
