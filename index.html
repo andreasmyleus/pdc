@@ -316,58 +316,52 @@
         position: fixed;
         left: 0; right: 0;
         bottom: 0;
-        height: 45vh;
-        overflow: hidden;
+        height: 38vh;
         pointer-events: none;
         z-index: 2;
+        overflow: hidden;
       }
       .earth-halo {
         position: absolute;
         left: 50%;
-        bottom: calc(35vh - 140vw);
-        width: 150vw;
-        height: 150vw;
+        top: -12vw;
+        width: 140vw;
+        height: 24vw;
         transform: translateX(-50%);
-        border-radius: 50%;
-        background: radial-gradient(circle at 50% 50%,
-          rgba(255, 215, 160, 0) 45%,
-          rgba(255, 200, 140, 0.55) 48%,
-          rgba(255, 160, 100, 0.42) 51%,
-          rgba(220, 120, 180, 0.26) 56%,
-          rgba(120, 100, 220, 0.14) 62%,
+        background: radial-gradient(ellipse at 50% 100%,
+          rgba(255, 200, 140, 0.5) 0%,
+          rgba(255, 160, 100, 0.32) 20%,
+          rgba(220, 120, 180, 0.2) 40%,
+          rgba(120, 100, 220, 0.1) 55%,
           transparent 75%);
-        filter: blur(28px);
+        filter: blur(24px);
         animation: earthGlow 10s ease-in-out infinite alternate;
       }
       .earth-img {
         position: absolute;
-        left: 50%;
-        bottom: calc(35vh - 130vw);
-        width: 130vw;
-        height: 130vw;
-        transform: translateX(-50%);
-        -webkit-mask-image: radial-gradient(circle at 50% 50%, black 48.5%, transparent 49.7%);
-                mask-image: radial-gradient(circle at 50% 50%, black 48.5%, transparent 49.7%);
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        display: block;
         user-select: none;
         -webkit-user-drag: none;
       }
       @keyframes earthGlow {
-        from { opacity: 0.8; transform: translateX(-50%) scale(0.99); }
-        to   { opacity: 1;   transform: translateX(-50%) scale(1.02); }
+        from { opacity: 0.75; transform: translateX(-50%) scale(0.98); }
+        to   { opacity: 1;    transform: translateX(-50%) scale(1.03); }
       }
-      html[data-theme="mono-light"] .earth-img { opacity: 0.85; }
+      html[data-theme="mono-light"] .earth-img { opacity: 0.9; }
       html[data-theme="mono-light"] .earth-halo {
-        background: radial-gradient(circle at 50% 50%,
-          rgba(255, 200, 140, 0) 45%,
-          rgba(255, 180, 110, 0.5) 48%,
-          rgba(255, 140, 90, 0.35) 52%,
-          rgba(200, 120, 180, 0.2) 58%,
-          transparent 72%);
+        background: radial-gradient(ellipse at 50% 100%,
+          rgba(255, 190, 120, 0.5) 0%,
+          rgba(255, 150, 90, 0.32) 20%,
+          rgba(200, 120, 180, 0.18) 38%,
+          transparent 65%);
       }
       @media (max-width: 760px) {
-        .earth-scene { height: 36vh; }
-        .earth-halo { bottom: calc(28vh - 140vw); }
-        .earth-img { bottom: calc(28vh - 130vw); }
+        .earth-scene { height: 32vh; }
+        .earth-halo { top: -14vw; height: 28vw; }
       }
 
       body::before {
