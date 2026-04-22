@@ -90,7 +90,7 @@
         --accent: #0a0a0a;
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      html, body { min-height: 100%; background: var(--bg); color: var(--fg); }
+      html, body { min-height: 100%; background: var(--bg); color: var(--fg); overflow-x: hidden; }
       body {
         font-family: var(--sans);
         line-height: 1.55;
@@ -391,25 +391,22 @@
       }
       .modal::-webkit-scrollbar,
       .modal .sheet::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
       }
       .modal::-webkit-scrollbar-track,
       .modal .sheet::-webkit-scrollbar-track {
-        background: transparent;
+        background: rgba(255,255,255,0.04);
       }
       .modal::-webkit-scrollbar-thumb,
       .modal .sheet::-webkit-scrollbar-thumb {
-        background: var(--line-2);
+        background: var(--fg-faint);
         border-radius: 999px;
-        border: 2px solid transparent;
-        background-clip: padding-box;
         transition: background 0.2s ease;
       }
       .modal::-webkit-scrollbar-thumb:hover,
       .modal .sheet::-webkit-scrollbar-thumb:hover {
-        background: var(--fg-faint);
-        background-clip: padding-box;
+        background: var(--fg-dim);
       }
       .modal::-webkit-scrollbar-corner,
       .modal .sheet::-webkit-scrollbar-corner {
@@ -575,7 +572,7 @@
         .scene { padding: 20px 18px 28px; gap: 28px; }
         .top { font-size: 10px; gap: 10px; flex-wrap: wrap; }
         .center { gap: 36px; padding: 20px 0; }
-        .word-stack { font-size: clamp(180px, 42vw, 260px); white-space: nowrap; }
+        .word-stack { font-size: clamp(56px, 18vw, 128px); }
         .nav-pills { gap: 8px; }
         .pill { padding: 10px 16px; font-size: 10px; letter-spacing: 0.12em; }
         .v-card { padding: 10px 18px 10px 12px; gap: 10px; }
@@ -591,8 +588,8 @@
         .contact-row { justify-content: center; gap: 14px; }
         .social-link { padding: 5px; }
         .social-link .s-ico { width: 26px; height: 26px; }
-        .modal { padding: 28px 12px 12px; }
-        .modal .sheet { padding: 0 22px 32px; max-height: calc(100dvh - 40px); }
+        .modal { padding: 0; }
+        .modal .sheet { padding: 0 22px 32px; max-height: 100dvh; min-height: 100dvh; width: 100%; border: none; }
         .modal-tabs { margin: 0 -22px 20px; padding: 16px 22px; }
         .modal h2 { font-size: 30px; }
         .modal ul li { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
@@ -601,12 +598,7 @@
         .port-grid { grid-template-columns: 1fr; }
         .glow { width: 140vw; height: 140vw; }
       }
-      @media (max-width: 400px) {
-        .word-stack { font-size: clamp(46px, 15vw, 72px); }
-        .v-card .meta .name { font-size: 16px; }
-      }
-
-      html[data-motion="off"] *, html[data-motion="off"] body::before { animation: none !important; }
+html[data-motion="off"] *, html[data-motion="off"] body::before { animation: none !important; }
       @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
 </head>
