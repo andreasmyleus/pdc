@@ -560,15 +560,22 @@
       .port-card:hover { border-color: var(--fg-dim); transform: translateY(-2px); }
       .port-card .plogo {
         width: 100%;
-        aspect-ratio: 1 / 1;
-        display: flex; align-items: center; justify-content: center;
-        background: transparent;
-        box-shadow: none;
-        border-radius: 0;
-        overflow: visible;
+        aspect-ratio: 16 / 10;
+        display: block;
+        background: var(--bg-2);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        overflow: hidden;
       }
-      .port-card .plogo img { width: 100%; height: 100%; object-fit: contain; padding: 0; background: transparent; }
-      .port-card .plogo img.rounded { border-radius: 12%; }
+      .port-card .plogo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .port-card:hover .plogo img { transform: scale(1.02); }
       .port-card h4 { font-family: var(--serif); font-size: 28px; font-weight: 400; line-height: 1; letter-spacing: -0.01em; }
       .port-card h4 em { font-style: italic; color: var(--fg-dim); }
       .port-card p { color: var(--fg-dim); font-size: 14px; text-wrap: pretty; }
@@ -836,31 +843,31 @@
 
     <div class="port-grid">
       <a class="port-card" href="https://res.ax" target="_blank" rel="noopener">
-        <span class="plogo"><img src="resax.png" alt="res.ax"></span>
+        <span class="plogo"><img src="resax.png" alt="res.ax" loading="lazy"></span>
         <h4>res<em>.ax</em></h4>
         <p>Ålands reseportal. Samlar restider från olika transportsätt så du enkelt hittar och planerar din resa till och från Åland.</p>
         <span class="go">Besök res.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://korgen.ax" target="_blank" rel="noopener">
-        <span class="plogo"><img src="korgen.png" alt="korgen.ax" class="rounded"></span>
+        <span class="plogo"><img src="korgen.png" alt="korgen.ax" loading="lazy"></span>
         <h4>korgen<em>.ax</em></h4>
         <p>Ålands digitala torg. Handla mat och hantverk från lokala producenter på ett ställe.</p>
         <span class="go">Besök korgen.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://loppis.ax" target="_blank" rel="noopener">
-        <span class="plogo"><img src="loppis.png" alt="loppis.ax" class="rounded"></span>
+        <span class="plogo"><img src="loppis.png" alt="loppis.ax" loading="lazy"></span>
         <h4>loppis<em>.ax</em></h4>
         <p>Alla loppisar på Åland samlade på en karta. Hitta second hand, loppmarknader och begagnat nära dig.</p>
         <span class="go">Besök loppis.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://historia-aland.fly.dev" target="_blank" rel="noopener">
-        <span class="plogo"><img src="historia.png" alt="historia-aland" class="rounded"></span>
+        <span class="plogo"><img src="historia.png" alt="historia-aland" loading="lazy"></span>
         <h4>historia<em>-aland</em></h4>
         <p>Ålands historia på karta. Utforska olika kartlager från 8500 f.Kr. och framåt.</p>
         <span class="go">Besök historia-aland <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://elaxbrott.fly.dev" target="_blank" rel="noopener">
-        <span class="plogo"><img src="elaxbrott.png" alt="elaxbrott" class="rounded"></span>
+        <span class="plogo"><img src="elaxbrott.png" alt="elaxbrott" loading="lazy"></span>
         <h4>el<em>axbrott</em></h4>
         <p>Översikt över elavbrott på Åland. Se aktuella och historiska strömavbrott i realtid.</p>
         <span class="go">Besök elaxbrott <span class="arr">→</span></span>
