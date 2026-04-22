@@ -316,54 +316,29 @@
         position: fixed;
         left: 0; right: 0;
         bottom: 0;
-        height: 38vh;
+        height: 50vh;
         pointer-events: none;
         z-index: 2;
         overflow: hidden;
       }
-      .earth-halo {
-        position: absolute;
-        left: 50%;
-        top: -12vw;
-        width: 140vw;
-        height: 24vw;
-        transform: translateX(-50%);
-        background: radial-gradient(ellipse at 50% 100%,
-          rgba(255, 200, 140, 0.5) 0%,
-          rgba(255, 160, 100, 0.32) 20%,
-          rgba(220, 120, 180, 0.2) 40%,
-          rgba(120, 100, 220, 0.1) 55%,
-          transparent 75%);
-        filter: blur(24px);
-        animation: earthGlow 10s ease-in-out infinite alternate;
-      }
       .earth-img {
         position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: auto;
+        left: 50%;
+        bottom: -55vw;
+        width: 100vw;
+        height: 100vw;
         display: block;
         user-select: none;
         -webkit-user-drag: none;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 6%, black 20%);
-                mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 6%, black 20%);
-      }
-      @keyframes earthGlow {
-        from { opacity: 0.75; transform: translateX(-50%) scale(0.98); }
-        to   { opacity: 1;    transform: translateX(-50%) scale(1.03); }
+        transform: translateX(-50%) rotate(-45deg);
+        transform-origin: 50% 50%;
+        -webkit-mask-image: radial-gradient(circle at 50% 50%, black 47%, transparent 49.5%);
+                mask-image: radial-gradient(circle at 50% 50%, black 47%, transparent 49.5%);
       }
       html[data-theme="mono-light"] .earth-img { opacity: 0.9; }
-      html[data-theme="mono-light"] .earth-halo {
-        background: radial-gradient(ellipse at 50% 100%,
-          rgba(255, 190, 120, 0.5) 0%,
-          rgba(255, 150, 90, 0.32) 20%,
-          rgba(200, 120, 180, 0.18) 38%,
-          transparent 65%);
-      }
       @media (max-width: 760px) {
-        .earth-scene { height: 32vh; }
-        .earth-halo { top: -14vw; height: 28vw; }
+        .earth-scene { height: 40vh; }
+        .earth-img { width: 140vw; height: 140vw; bottom: -80vw; }
       }
 
       body::before {
@@ -633,7 +608,6 @@
 </div>
 
 <div class="earth-scene" aria-hidden="true">
-  <div class="earth-halo"></div>
   <img class="earth-img" src="earth-night.jpg" alt="" loading="lazy" decoding="async" />
 </div>
 
