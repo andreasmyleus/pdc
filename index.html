@@ -352,6 +352,29 @@
       }
       .modal .close:hover { color: var(--fg); border-color: var(--fg); transform: rotate(90deg); }
 
+      .modal-tabs {
+        display: flex; gap: 8px; flex-wrap: wrap;
+        margin-bottom: 24px;
+        padding-right: 48px;
+      }
+      .modal-tab {
+        font-family: var(--mono);
+        font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+        padding: 8px 14px;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        color: var(--fg-dim);
+        background: transparent;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+      .modal-tab:hover { color: var(--fg); border-color: var(--fg-dim); }
+      .modal-tab.active {
+        color: var(--bg);
+        background: var(--fg);
+        border-color: var(--fg);
+        cursor: default;
+      }
       .modal .idx { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-faint); }
       .modal h2 {
         font-family: var(--serif); font-weight: 400;
@@ -555,6 +578,11 @@
 <div class="modal" id="modal-about" role="dialog" aria-modal="true">
   <div class="sheet">
     <button class="close" aria-label="Stäng">×</button>
+    <nav class="modal-tabs" role="tablist" aria-label="Sektioner">
+      <button type="button" class="modal-tab active" data-tab="about" aria-current="page">Om företaget</button>
+      <button type="button" class="modal-tab" data-tab="services">Tjänster</button>
+      <button type="button" class="modal-tab" data-tab="portfolio">Produkter</button>
+    </nav>
     <div class="idx">01 · Om företaget</div>
     <h2>Peruna <em>Deep</em> Consulting Ab</h2>
     <p class="lede">Grundat januari 2023 på Åland av Andreas Myleus.</p>
@@ -609,6 +637,11 @@
 <div class="modal" id="modal-services" role="dialog" aria-modal="true">
   <div class="sheet">
     <button class="close" aria-label="Stäng">×</button>
+    <nav class="modal-tabs" role="tablist" aria-label="Sektioner">
+      <button type="button" class="modal-tab" data-tab="about">Om företaget</button>
+      <button type="button" class="modal-tab active" data-tab="services" aria-current="page">Tjänster</button>
+      <button type="button" class="modal-tab" data-tab="portfolio">Produkter</button>
+    </nav>
     <div class="idx">02 · Tjänster</div>
     <h2>Vad vi <em>gör</em></h2>
     <p class="lede">Tre fält, samma kravnivå: säkerhet, redundans, kvalitet. Korta uppdrag eller fleråriga samarbeten.</p>
@@ -654,6 +687,11 @@
 <div class="modal" id="modal-portfolio" role="dialog" aria-modal="true">
   <div class="sheet">
     <button class="close" aria-label="Stäng">×</button>
+    <nav class="modal-tabs" role="tablist" aria-label="Sektioner">
+      <button type="button" class="modal-tab" data-tab="about">Om företaget</button>
+      <button type="button" class="modal-tab" data-tab="services">Tjänster</button>
+      <button type="button" class="modal-tab active" data-tab="portfolio" aria-current="page">Produkter</button>
+    </nav>
     <div class="idx">03 · Produkter</div>
     <h2>Egna <em>produkter</em></h2>
     <p class="lede">Produkter byggda och drivna av PDC.</p>
@@ -662,7 +700,7 @@
       <a class="port-card" href="https://res.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="resax.png" alt="res.ax"></span>
         <h4>res<em>.ax</em></h4>
-        <p>Ålands reseportal. Samlar färjetider, boende och upplevelser så du hittar och planerar din resa på ett ställe.</p>
+        <p>Ålands reseportal. Samlar färjetider så du enkelt hittar och planerar din resa till och från Åland.</p>
         <span class="go">Besök res.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://korgen.ax" target="_blank" rel="noopener">
@@ -670,6 +708,24 @@
         <h4>korgen<em>.ax</em></h4>
         <p>Ålands digitala torg. Handla mat och hantverk från lokala producenter och få allt levererat hem.</p>
         <span class="go">Besök korgen.ax <span class="arr">→</span></span>
+      </a>
+      <a class="port-card" href="https://loppis.ax" target="_blank" rel="noopener">
+        <span class="plogo"><img src="loppis.png" alt="loppis.ax" class="rounded"></span>
+        <h4>loppis<em>.ax</em></h4>
+        <p>Ålands digitala loppis. Köp och sälj begagnat lokalt, enkelt och utan krångel.</p>
+        <span class="go">Besök loppis.ax <span class="arr">→</span></span>
+      </a>
+      <a class="port-card" href="https://historia-aland.fly.dev" target="_blank" rel="noopener">
+        <span class="plogo"><img src="historia.png" alt="historia-aland" class="rounded"></span>
+        <h4>historia<em>-aland</em></h4>
+        <p>Ålands historia samlad på ett ställe. Utforska platser, händelser och personer från öarnas förflutna.</p>
+        <span class="go">Besök historia-aland <span class="arr">→</span></span>
+      </a>
+      <a class="port-card" href="https://elaxbrott.fly.dev" target="_blank" rel="noopener">
+        <span class="plogo"><img src="elaxbrott.png" alt="elaxbrott" class="rounded"></span>
+        <h4>el<em>axbrott</em></h4>
+        <p>Översikt över elavbrott på Åland. Se aktuella och historiska strömavbrott i realtid.</p>
+        <span class="go">Besök elaxbrott <span class="arr">→</span></span>
       </a>
     </div>
 
@@ -719,6 +775,14 @@ document.querySelectorAll("[data-open]").forEach(a => {
 document.querySelectorAll(".modal").forEach(m => {
   m.addEventListener("click", e => { if (e.target === m) closeAllModals(); });
   m.querySelector(".close").addEventListener("click", closeAllModals);
+});
+document.querySelectorAll(".modal-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    if (tab.classList.contains("active")) return;
+    const target = tab.dataset.tab;
+    document.querySelectorAll(".modal").forEach(m => m.classList.remove("open"));
+    openModal(target);
+  });
 });
 window.addEventListener("keydown", e => { if (e.key === "Escape") closeAllModals(); });
 
