@@ -311,6 +311,99 @@
       }
       @keyframes horizonShift { from{transform:translateX(-40px)} to{transform:translateX(40px)} }
 
+      /* ============ Earthrise ============ */
+      .earth-scene {
+        position: fixed;
+        left: 0; right: 0;
+        bottom: 0;
+        height: 38vh;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 2;
+      }
+      .earth-halo {
+        position: absolute;
+        left: 50%;
+        bottom: calc(28vh - 130vw);
+        width: 260vw;
+        height: 260vw;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 50%,
+            rgba(255, 210, 150, 0.55) 0%,
+            rgba(255, 170, 110, 0.38) 8%,
+            rgba(220, 130, 180, 0.22) 16%,
+            rgba(120, 100, 220, 0.12) 24%,
+            transparent 36%);
+        filter: blur(24px);
+        animation: earthGlow 10s ease-in-out infinite alternate;
+      }
+      .earth {
+        position: absolute;
+        left: 50%;
+        bottom: calc(30vh - 125vw);
+        width: 250vw;
+        height: 250vw;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 20%,
+            rgba(90, 130, 180, 0.22) 0%,
+            rgba(40, 60, 90, 0.18) 6%,
+            transparent 14%),
+          radial-gradient(circle at 50% 50%,
+            #0a1626 0%,
+            #050a13 40%,
+            #01030a 70%,
+            #000 100%);
+        box-shadow:
+          inset 0 30px 80px rgba(140, 180, 230, 0.12),
+          0 -1px 0 rgba(255, 210, 170, 0.35),
+          0 -4px 30px rgba(255, 180, 130, 0.25);
+      }
+      .earth::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background:
+          radial-gradient(ellipse at 30% 12%, rgba(120, 160, 200, 0.08), transparent 18%),
+          radial-gradient(ellipse at 70% 14%, rgba(100, 140, 190, 0.06), transparent 20%);
+        mix-blend-mode: screen;
+      }
+      @keyframes earthGlow {
+        from { opacity: 0.75; transform: translateX(-50%) scale(0.98); }
+        to   { opacity: 1;    transform: translateX(-50%) scale(1.03); }
+      }
+      html[data-theme="mono-light"] .earth {
+        background:
+          radial-gradient(circle at 50% 20%,
+            rgba(60, 80, 110, 0.15) 0%,
+            transparent 14%),
+          radial-gradient(circle at 50% 50%,
+            #c8cdd4 0%,
+            #a8aeb8 50%,
+            #7a8290 100%);
+        box-shadow:
+          inset 0 30px 80px rgba(255, 255, 255, 0.25),
+          0 -1px 0 rgba(255, 210, 170, 0.6),
+          0 -4px 30px rgba(255, 180, 120, 0.35);
+      }
+      html[data-theme="mono-light"] .earth-halo {
+        background:
+          radial-gradient(circle at 50% 50%,
+            rgba(255, 190, 120, 0.5) 0%,
+            rgba(255, 150, 90, 0.3) 12%,
+            rgba(200, 120, 180, 0.15) 22%,
+            transparent 34%);
+      }
+      @media (max-width: 760px) {
+        .earth-scene { height: 30vh; }
+        .earth-halo { bottom: calc(22vh - 130vw); }
+        .earth { bottom: calc(24vh - 125vw); }
+      }
+
       body::before {
         content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 5;
         opacity: 0.25; mix-blend-mode: overlay;
@@ -560,6 +653,11 @@
 <div class="bg">
   <canvas class="stars" id="stars"></canvas>
   <div class="glow"></div>
+</div>
+
+<div class="earth-scene" aria-hidden="true">
+  <div class="earth-halo"></div>
+  <div class="earth"></div>
 </div>
 
 <main class="scene">
