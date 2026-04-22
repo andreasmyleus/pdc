@@ -435,6 +435,8 @@
         transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
       .modal.open .sheet { transform: translateY(0) scale(1); }
+      .modal.switching, .modal.switching .sheet { transition: none !important; }
+      .modal.switching .sheet { transform: translateY(0) scale(1); }
 
       .modal, .modal .sheet {
         scrollbar-width: thin;
@@ -916,8 +918,20 @@ document.querySelectorAll(".modal-tab").forEach(tab => {
   tab.addEventListener("click", () => {
     if (tab.classList.contains("active")) return;
     const target = tab.dataset.tab;
-    document.querySelectorAll(".modal").forEach(m => m.classList.remove("open"));
-    openModal(target);
+    const next = document.getElementById("modal-" + target);
+    if (!next) return;
+    document.querySelectorAll(".modal.open").forEach(m => {
+      m.classList.add("switching");
+      m.classList.remove("open");
+    });
+    next.classList.add("switching");
+    next.classList.add("open");
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll(".modal.switching").forEach(m => m.classList.remove("switching"));
+      });
+    });
   });
 });
 window.addEventListener("keydown", e => { if (e.key === "Escape") closeAllModals(); });
