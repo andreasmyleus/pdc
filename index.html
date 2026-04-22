@@ -320,18 +320,19 @@
       /* ============ Modal ============ */
       .modal {
         position: fixed; inset: 0; z-index: 30;
-        display: flex; align-items: center; justify-content: center;
+        display: flex; align-items: flex-start; justify-content: center;
         background: color-mix(in srgb, var(--bg) 85%, transparent);
         backdrop-filter: blur(24px) saturate(1.2);
         opacity: 0; pointer-events: none;
         transition: opacity 0.4s ease;
-        padding: 24px;
+        padding: 60px 24px 24px;
+        overflow-y: auto;
       }
       .modal.open { opacity: 1; pointer-events: auto; }
       .modal .sheet {
         width: min(820px, 100%);
-        max-height: calc(100vh - 48px);
-        max-height: calc(100dvh - 48px);
+        max-height: calc(100vh - 84px);
+        max-height: calc(100dvh - 84px);
         background: var(--bg-2);
         border: 1px solid var(--line);
         padding: 48px 52px;
@@ -341,6 +342,37 @@
         transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
       .modal.open .sheet { transform: translateY(0) scale(1); }
+
+      .modal, .modal .sheet {
+        scrollbar-width: thin;
+        scrollbar-color: var(--line-2) transparent;
+      }
+      .modal::-webkit-scrollbar,
+      .modal .sheet::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .modal::-webkit-scrollbar-track,
+      .modal .sheet::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .modal::-webkit-scrollbar-thumb,
+      .modal .sheet::-webkit-scrollbar-thumb {
+        background: var(--line-2);
+        border-radius: 999px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        transition: background 0.2s ease;
+      }
+      .modal::-webkit-scrollbar-thumb:hover,
+      .modal .sheet::-webkit-scrollbar-thumb:hover {
+        background: var(--fg-faint);
+        background-clip: padding-box;
+      }
+      .modal::-webkit-scrollbar-corner,
+      .modal .sheet::-webkit-scrollbar-corner {
+        background: transparent;
+      }
       .modal .close {
         position: absolute; top: 20px; right: 24px;
         width: 36px; height: 36px;
@@ -505,8 +537,8 @@
         .contact-row { justify-content: center; gap: 14px; }
         .social-link { padding: 6px 14px 6px 6px; font-size: 10px; }
         .social-link .s-ico { width: 26px; height: 26px; }
-        .modal { padding: 12px; }
-        .modal .sheet { padding: 32px 22px; }
+        .modal { padding: 28px 12px 12px; }
+        .modal .sheet { padding: 32px 22px; max-height: calc(100dvh - 40px); }
         .modal h2 { font-size: 30px; }
         .modal ul li { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
         .modal ul li .k { font-size: 16px; }
@@ -712,13 +744,13 @@
       <a class="port-card" href="https://loppis.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="loppis.png" alt="loppis.ax" class="rounded"></span>
         <h4>loppis<em>.ax</em></h4>
-        <p>Ålands digitala loppis. Köp och sälj begagnat lokalt, enkelt och utan krångel.</p>
+        <p>Alla loppisar på Åland samlade på en karta. Hitta second hand, loppmarknader och begagnat nära dig.</p>
         <span class="go">Besök loppis.ax <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://historia-aland.fly.dev" target="_blank" rel="noopener">
         <span class="plogo"><img src="historia.png" alt="historia-aland" class="rounded"></span>
         <h4>historia<em>-aland</em></h4>
-        <p>Ålands historia samlad på ett ställe. Utforska platser, händelser och personer från öarnas förflutna.</p>
+        <p>Ålands historia på karta. Utforska olika kartlager från 8500 f.Kr. och framåt.</p>
         <span class="go">Besök historia-aland <span class="arr">→</span></span>
       </a>
       <a class="port-card" href="https://elaxbrott.fly.dev" target="_blank" rel="noopener">
