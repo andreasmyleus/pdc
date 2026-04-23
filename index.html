@@ -118,6 +118,21 @@
       .top .mark { display: flex; align-items: center; gap: 10px; }
       .top .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg); animation: pulse 2.4s ease-in-out infinite; }
       @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+      .top-right { display: flex; align-items: center; gap: 18px; }
+
+      .lang-switch {
+        display: inline-flex; align-items: center; gap: 7px;
+        font: inherit; letter-spacing: inherit;
+      }
+      .lang-switch button {
+        background: none; border: none; padding: 0; cursor: pointer;
+        font: inherit; letter-spacing: inherit; text-transform: inherit;
+        color: var(--fg-faint);
+        transition: color 0.2s ease;
+      }
+      .lang-switch button:hover { color: var(--fg-dim); }
+      .lang-switch button.active { color: var(--fg); cursor: default; }
+      .lang-switch .sep { color: var(--fg-faint); opacity: 0.45; }
 
       .center {
         display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -328,28 +343,61 @@
         z-index: 2;
         overflow: hidden;
       }
-      .earth-img {
+      .earth-globe {
         position: absolute;
         left: 50%;
         bottom: -70vw;
         width: 100vw;
         height: 100vw;
-        display: block;
-        user-select: none;
-        -webkit-user-drag: none;
         transform: translateX(-50%) rotate(45deg);
         transform-origin: 50% 50%;
         -webkit-mask-image: radial-gradient(circle 48vw at 50% 50%, black 98%, transparent 100%);
                 mask-image: radial-gradient(circle 48vw at 50% 50%, black 98%, transparent 100%);
       }
+      .earth-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+      .aland-star {
+        position: absolute;
+        left: 37.5%;
+        top: 21.5%;
+        width: 0.7vw;
+        height: 0.7vw;
+        min-width: 5px;
+        min-height: 5px;
+        border-radius: 50%;
+        background: #ffd27a;
+        box-shadow:
+          0 0 6px 2px rgba(255, 210, 122, 0.9),
+          0 0 14px 6px rgba(255, 210, 122, 0.45);
+        transform: translate(-50%, -50%);
+        animation: alandPulse 2.4s ease-in-out infinite;
+      }
+      @keyframes alandPulse {
+        0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
+        50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.25); }
+      }
       html[data-theme="mono-light"] .earth-img { opacity: 0.9; }
       @media (max-width: 760px) {
-        .earth-img {
+        .earth-globe {
           width: 160vw; height: 160vw;
           bottom: -90vw;
           -webkit-mask-image: radial-gradient(circle 76vw at 50% 50%, black 98%, transparent 100%);
                   mask-image: radial-gradient(circle 76vw at 50% 50%, black 98%, transparent 100%);
         }
+        .aland-star {
+          width: 1.2vw;
+          height: 1.2vw;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .aland-star { animation: none; opacity: 0.9; }
       }
 
       body::before {
@@ -612,13 +660,23 @@ html[data-motion="off"] *, html[data-motion="off"] body::before { animation: non
 </div>
 
 <div class="earth-scene" aria-hidden="true">
-  <img class="earth-img" src="earth-night.jpg" alt="" decoding="async" />
+  <div class="earth-globe">
+    <img class="earth-img" src="earth-night.jpg" alt="" decoding="async" />
+    <span class="aland-star"></span>
+  </div>
 </div>
 
 <main class="scene">
   <div class="top">
     <div class="mark"><span class="dot"></span><span>Peruna Deep Consulting · Åland</span></div>
-    <div id="clock">UTC ··</div>
+    <div class="top-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="sv" class="active" aria-pressed="true">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <div id="clock">UTC ··</div>
+    </div>
   </div>
 
   <div class="center">
