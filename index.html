@@ -836,10 +836,12 @@ html[data-motion="off"] *, html[data-motion="off"] body::before { animation: non
       <button class="close" data-i18n-aria-label="aria.close" aria-label="Stäng">×</button>
     </nav>
     <div class="idx" data-i18n="port.idx">03 · Produkter</div>
-    <h2><span data-i18n="port.title_a">Egna </span><em data-i18n="port.title_em">produkter</em></h2>
-    <p class="lede" data-i18n="port.lede">Produkter byggda och drivna av PDC.</p>
+    <h2><span data-i18n="port.title_a">Produkter & </span><em data-i18n="port.title_em">projekt</em></h2>
+    <p class="lede" data-i18n="port.lede">Egna produkter byggda och drivna av PDC, och webb och system vi byggt åt kunder.</p>
 
-    <div class="port-grid">
+    <section>
+      <h3 data-i18n="port.own_h">Egna produkter</h3>
+      <div class="port-grid">
       <a class="port-card" href="https://res.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="resax.png" alt="res.ax" loading="lazy"></span>
         <h4>res<em>.ax</em></h4>
@@ -882,6 +884,12 @@ html[data-motion="off"] *, html[data-motion="off"] body::before { animation: non
         <p data-i18n="port.udrop">Publicera markdown med en enda POST. Få en URL till dokument, slides eller PDF — direkt från terminalen.</p>
         <span class="go"><span data-i18n="port.visit" data-i18n-args="udrop.dev">Besök udrop.dev</span> <span class="arr">→</span></span>
       </a>
+      </div>
+    </section>
+
+    <section>
+      <h3 data-i18n="port.client_h">Kundprojekt</h3>
+      <div class="port-grid">
       <a class="port-card" href="https://battaxi.ax" target="_blank" rel="noopener">
         <span class="plogo"><img src="battaxi.png" alt="battaxi.ax" loading="lazy"></span>
         <h4>battaxi<em>.ax</em></h4>
@@ -900,7 +908,8 @@ html[data-motion="off"] *, html[data-motion="off"] body::before { animation: non
         <p data-i18n="port.ekohus">Ett giftfritt ekohus av trä och lera utanför Mariehamn. Uthyrning av unikt boende med gästhus, nära både stad och hav.</p>
         <span class="go"><span data-i18n="port.visit" data-i18n-args="ekohus.ax">Besök ekohus.ax</span> <span class="arr">→</span></span>
       </a>
-    </div>
+      </div>
+    </section>
 
   </div>
 </div>
@@ -972,9 +981,11 @@ const I18N = {
 
     "port.idx": "03 · Produkter",
     "port.title_a": "Produkter & ",
-    "port.title_em": "uppdrag",
-    "port.lede": "Egna produkter byggda och drivna av PDC, samt webb och system vi byggt åt kunder.",
+    "port.title_em": "projekt",
+    "port.lede": "Egna produkter byggda och drivna av PDC, och webb och system vi byggt åt kunder.",
     "port.visit": "Besök {0}",
+    "port.own_h": "Egna produkter",
+    "port.client_h": "Kundprojekt",
     "port.resax": "Ålands reseportal. Samlar restider från olika transportsätt så du enkelt hittar och planerar din resa till och från Åland.",
     "port.korgen": "Ålands digitala torg. Handla mat och hantverk från lokala producenter på ett ställe.",
     "port.loppis": "Alla loppisar på Åland samlade på en karta. Hitta second hand, loppmarknader och begagnat nära dig.",
@@ -1050,9 +1061,11 @@ const I18N = {
 
     "port.idx": "03 · Products",
     "port.title_a": "Products & ",
-    "port.title_em": "engagements",
+    "port.title_em": "projects",
     "port.lede": "Our own products built and operated by PDC, plus web and systems we've built for clients.",
     "port.visit": "Visit {0}",
+    "port.own_h": "Our products",
+    "port.client_h": "Client projects",
     "port.resax": "Åland's travel portal. Aggregates travel times across transport modes so you can easily plan trips to and from Åland.",
     "port.korgen": "Åland's digital marketplace. Shop food and crafts from local producers in one place.",
     "port.loppis": "All flea markets on Åland on one map. Find second-hand and flea markets near you.",
