@@ -491,7 +491,8 @@
 
       /* ============ Footer ============ */
       .site-foot {
-        max-width: 1200px; margin: 0 auto;
+        min-height: 100vh; min-height: 100svh;
+        display: flex; flex-direction: column; justify-content: flex-end;
         padding: clamp(120px, 16vw, 220px) var(--gutter) 32px;
       }
       .foot-cta { border-top: 1px solid var(--line); padding-top: 40px; }
@@ -503,9 +504,96 @@
       }
       .foot-big em { font-style: italic; color: var(--fg-dim); transition: color 0.3s var(--ease-out); }
       .foot-meta {
-        margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--line);
+        margin-top: max(72px, 32vh); padding-top: 24px; border-top: 1px solid var(--line);
         display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
         font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-faint);
+      }
+
+      /* ============ Manifesto ============ */
+      .manifesto { position: relative; z-index: 2; }
+      .manifesto-stage {
+        min-height: 100vh; min-height: 100svh;
+        display: grid; place-items: center;
+        padding: var(--head-h) var(--gutter);
+      }
+      html.cine .manifesto { height: 240vh; }
+      html.cine .manifesto-stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
+      .manifesto-inner { max-width: 1100px; }
+      .manifesto .idx { margin-bottom: 28px; }
+      .manifesto-text {
+        font-family: var(--serif); font-weight: 400;
+        font-size: clamp(34px, 5.4vw, 76px); line-height: 1.08; letter-spacing: -0.015em;
+        text-wrap: balance;
+      }
+      .manifesto-text .mw { opacity: 1; }
+      html.cine .manifesto-text .mw { opacity: 0.14; }
+      .manifesto-text .mw.hl { font-style: italic; }
+
+      /* ============ Services: horizontal track (desktop, JS) ============ */
+      .hscroll {
+        --edge: max(var(--gutter), calc((100vw - 1200px) / 2 + var(--gutter)));
+        overflow: hidden; width: 100vw; margin-left: calc(50% - 50vw); padding: 0 var(--edge);
+      }
+      .hscroll .svc-grid { display: flex; width: max-content; gap: 1px; }
+      .hscroll .svc-grid > div { width: min(64vw, 820px); min-height: min(64vh, 560px); padding: 44px 44px 48px; }
+      .hscroll .svc-grid dt {
+        font-family: var(--serif); font-style: italic; font-size: 140px; line-height: 0.8; letter-spacing: -0.04em;
+        color: transparent; -webkit-text-stroke: 1px var(--fg-faint);
+      }
+      .hscroll .svc-grid dd { font-size: clamp(44px, 5vw, 72px); }
+      .hscroll .svc-grid .desc { font-size: 17px; max-width: 46ch; }
+      .hscroll-bar { height: 1px; background: var(--line); margin-top: 28px; position: relative; overflow: hidden; }
+      .hscroll-bar i { position: absolute; inset: 0; background: var(--fg); transform: scaleX(0); transform-origin: left; }
+
+      /* ============ Marquee ============ */
+      .marquee {
+        position: relative; z-index: 2;
+        margin-top: clamp(96px, 14vw, 180px);
+        border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+        overflow: hidden; padding: 26px 0;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+                mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      }
+      .mq-track { display: flex; width: max-content; animation: marquee 50s linear infinite; }
+      html.js .mq-track { animation: none; }
+      .mq-group { display: flex; align-items: center; gap: 44px; padding-right: 44px; }
+      .mq-group span {
+        font-family: var(--serif); font-size: clamp(40px, 6vw, 88px); line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
+      }
+      .mq-group span em { font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--fg-dim); }
+      .mq-group .star { font-family: var(--mono); font-size: 18px; color: var(--gold); }
+      @keyframes marquee { to { transform: translateX(-50%); } }
+
+      /* ============ Stats ============ */
+      .stats {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+        background: var(--line); border: 1px solid var(--line);
+        margin-bottom: 72px;
+      }
+      .stats > div { background: var(--bg); padding: 28px 28px 30px; display: flex; flex-direction: column-reverse; gap: 10px; }
+      .stats dd {
+        font-family: var(--serif); font-size: clamp(64px, 8vw, 112px); line-height: 0.9; letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+      }
+      .stats dd small { font-size: 0.45em; color: var(--fg-dim); font-style: italic; }
+      .stats dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-faint); }
+
+      /* ============ Footer earth ============ */
+      .site-foot { overflow: hidden; }
+      .foot-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+      .foot-earth { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+      .foot-globe {
+        --D: 100vw;
+        position: absolute; left: 50%; top: calc(100% - 44vh);
+        width: var(--D); height: var(--D);
+        transform: translateX(-50%) rotate(45deg);
+        -webkit-mask-image: radial-gradient(circle closest-side, black 96%, transparent 100%);
+                mask-image: radial-gradient(circle closest-side, black 96%, transparent 100%);
+      }
+      .foot-globe img { width: 100%; height: 100%; display: block; opacity: 0.85; }
+      .foot-earth::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(180deg, var(--bg) 0%, transparent 45%, transparent 80%, color-mix(in srgb, var(--bg) 45%, transparent) 100%);
       }
 
       /* ============ Hover (pointer devices only) ============ */
@@ -517,7 +605,8 @@
         .mail:hover em, .foot-big:hover em { color: var(--fg); }
         .social-link:hover { color: var(--fg); border-color: var(--fg); transform: translateY(-2px); }
         .svc-grid > div:hover::after { transform: scaleX(1); }
-        .port-card:hover { border-color: var(--fg-faint); transform: translateY(-3px); }
+        .port-card:hover { border-color: var(--fg-faint); }
+        html:not(.cine) .port-card:hover { transform: translateY(-3px); }
         .port-card:hover .plogo img { transform: scale(1.03); }
         .port-card:hover .go .arr { transform: translateX(4px); }
         .orgno-copy:hover { background: color-mix(in srgb, var(--fg) 85%, transparent); }
@@ -555,6 +644,10 @@
         .svc-grid > div { min-height: 0; }
         .svc-grid dd { padding-top: 28px; }
         .port-grid, .port-grid.three { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: 1fr; }
+        .stats > div { padding: 22px; }
+        .foot-globe { --D: 160vw; top: calc(100% - 34vh); }
+        .mq-group { gap: 28px; padding-right: 28px; }
       }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -642,6 +735,16 @@
     </div>
   </section>
 
+  <!-- ============ Manifest ============ -->
+  <section class="manifesto" aria-label="Peruna Deep Consulting">
+    <div class="manifesto-stage">
+      <div class="manifesto-inner">
+        <div class="idx" translate="no">60.1° N · 19.9° E</div>
+        <p class="manifesto-text" data-i18n="about.p_company_2" data-scrub-words>Grundat januari 2023 på Åland. Från enskilda expertinsatser till fullt ansvar end-to-end, med samma kravnivå på säkerhet, redundans och kvalitet oavsett uppdragets storlek.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ Tjänster ============ -->
   <section class="sect" id="services" aria-labelledby="h-services">
     <header class="sect-head">
@@ -652,7 +755,7 @@
       </div>
       <div class="sect-num" aria-hidden="true">01</div>
     </header>
-    <div class="block">
+    <div class="block svc-block">
       <dl class="svc-grid">
         <div>
           <dt>01</dt>
@@ -670,6 +773,7 @@
           <div class="desc" data-i18n="svc.cat3_d">Kommersiella drönaruppdrag (A1/A2/A3) och dyk (PADI Advanced, Nitrox, torrdräkt).</div>
         </div>
       </dl>
+      <div class="hscroll-bar" hidden><i></i></div>
     </div>
     <div class="block">
       <h3>Stack</h3>
@@ -685,6 +789,10 @@
     </div>
     <p class="block"><a class="inline-link" href="mailto:info@pdc.ax" data-i18n="svc.inquiry">Förfrågan → info@pdc.ax</a></p>
   </section>
+
+  <div class="marquee" aria-hidden="true" translate="no">
+    <div class="mq-track"><div class="mq-group"><span>res<em>.ax</em></span><span class="star">✦</span><span>korgen<em>.ax</em></span><span class="star">✦</span><span>loppis<em>.ax</em></span><span class="star">✦</span><span>historia<em>-aland</em></span><span class="star">✦</span><span>el<em>axbrott</em></span><span class="star">✦</span><span>eventguiden<em>.ax</em></span><span class="star">✦</span><span>udrop<em>.dev</em></span><span class="star">✦</span><span>faktura<em>x</em></span><span class="star">✦</span><span>väder<em>-aland</em></span><span class="star">✦</span><span>goblin<em>-modem</em></span><span class="star">✦</span></div><div class="mq-group"><span>res<em>.ax</em></span><span class="star">✦</span><span>korgen<em>.ax</em></span><span class="star">✦</span><span>loppis<em>.ax</em></span><span class="star">✦</span><span>historia<em>-aland</em></span><span class="star">✦</span><span>el<em>axbrott</em></span><span class="star">✦</span><span>eventguiden<em>.ax</em></span><span class="star">✦</span><span>udrop<em>.dev</em></span><span class="star">✦</span><span>faktura<em>x</em></span><span class="star">✦</span><span>väder<em>-aland</em></span><span class="star">✦</span><span>goblin<em>-modem</em></span><span class="star">✦</span></div></div>
+  </div>
 
   <!-- ============ Produkter ============ -->
   <section class="sect" id="portfolio" aria-labelledby="h-portfolio">
@@ -804,12 +912,16 @@
       </div>
       <div class="sect-num" aria-hidden="true">03</div>
     </header>
+    <dl class="stats">
+      <div><dt data-i18n="stats.products">Egna produkter</dt><dd data-count="own">10</dd></div>
+      <div><dt data-i18n="stats.clients">Kundprojekt</dt><dd data-count="client">3</dd></div>
+      <div><dt data-i18n="stats.esa">av 22 523 i ESA:s astronaututtagning</dt><dd><small data-i18n="stats.top">topp</small> ~<span data-count="400">400</span></dd></div>
+    </dl>
     <div class="about-cols">
       <div>
     <div class="block">
       <h3 data-i18n="about.h_company">Företaget</h3>
       <p data-i18n="about.p_company_1">Peruna Deep Consulting grundades och drivs av Andreas Myleus. Bolaget tar sig an specialiserade uppdrag där spetskompetens behövs, bemannar produktutvecklingsteam med senior kapacitet och bygger och driver egna produkter.</p>
-      <p data-i18n="about.p_company_2">Grundat januari 2023 på Åland. Från enskilda expertinsatser till fullt ansvar end-to-end, med samma kravnivå på säkerhet, redundans och kvalitet oavsett uppdragets storlek.</p>
       <p data-i18n="about.p_company_3">Verksamheten spänner över IT och teknik, energi, fintech, logistik, flyg och UAS samt dykning. Genom hela arbetet används AI-assisterad utveckling för högre hastighet och kvalitet, med människan i loopen.</p>
     </div>
     <div class="block">
@@ -847,6 +959,10 @@
 </main>
 
 <footer class="site-foot" id="contact">
+  <div class="foot-earth" aria-hidden="true">
+    <div class="foot-globe"><img src="earth-night.jpg" alt="" width="2000" height="2000" loading="lazy" decoding="async" /><span class="aland-star"></span></div>
+  </div>
+  <div class="foot-inner">
   <div class="foot-cta">
     <div class="idx" data-i18n="foot.h">Hör av dig</div>
     <a class="foot-big" href="mailto:info@pdc.ax" data-split-chars>info<em>@</em>pdc<em>.</em>ax</a>
@@ -867,6 +983,7 @@
       </div>
         </div>
   </div>
+  </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
@@ -884,6 +1001,10 @@ const I18N = {
     "aria.nav": "Huvudnavigation",
     "hero.scroll": "Scrolla",
     "foot.h": "Hör av dig",
+    "stats.products": "Egna produkter",
+    "stats.clients": "Kundprojekt",
+    "stats.esa": "av 22 523 i ESA:s astronaututtagning",
+    "stats.top": "topp",
 
     "about.idx": "03 · Om företaget",
     "about.title_a": "Peruna ",
@@ -975,6 +1096,10 @@ const I18N = {
     "aria.nav": "Main navigation",
     "hero.scroll": "Scroll",
     "foot.h": "Get in touch",
+    "stats.products": "Own products",
+    "stats.clients": "Client projects",
+    "stats.esa": "of 22,523 in ESA astronaut selection",
+    "stats.top": "top",
 
     "about.idx": "03 · About",
     "about.title_a": "Peruna ",
@@ -1315,6 +1440,115 @@ tick(); setInterval(tick, 30000);
     }
   });
 
+  // ---- manifesto: words light up as you scroll ----
+  const manifesto = document.querySelector("[data-scrub-words]");
+  if (manifesto) {
+    const HL = /^(Åland|end-to-end|säkerhet|redundans|kvalitet|safety|redundancy|quality)[.,]?$/i;
+    let mWords = [];
+    const splitManifesto = () => {
+      const text = manifesto.textContent;
+      manifesto.textContent = "";
+      mWords = text.split(/(\s+)/).filter(Boolean).map(part => {
+        if (/^\s+$/.test(part)) { manifesto.appendChild(document.createTextNode(part)); return null; }
+        const w = document.createElement("span"); w.className = "mw" + (HL.test(part) ? " hl" : ""); w.textContent = part;
+        manifesto.appendChild(w); return w;
+      }).filter(Boolean);
+    };
+    let mProgress = 0;
+    const paintManifesto = () => {
+      const n = mWords.length;
+      mWords.forEach((w, i) => {
+        const t = Math.min(Math.max(mProgress * (n + 4) - i, 0), 1);
+        w.style.opacity = (0.14 + 0.86 * t).toFixed(3);
+      });
+    };
+    splitManifesto();
+    ScrollTrigger.create({
+      trigger: ".manifesto", start: "top 40%", end: "bottom bottom",
+      onUpdate: self => { mProgress = self.progress; paintManifesto(); }
+    });
+    document.addEventListener("pdc:lang", () => { splitManifesto(); paintManifesto(); });
+  }
+
+  // ---- services: pinned horizontal track on wide screens ----
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 1001px)", () => {
+    const block = document.querySelector(".svc-block");
+    const track = block.querySelector(".svc-grid");
+    const bar = block.querySelector(".hscroll-bar");
+    block.classList.add("hscroll"); bar.hidden = false;
+    const dist = () => Math.max(track.scrollWidth - block.clientWidth + parseFloat(getComputedStyle(block).paddingLeft) * 2, 0);
+    const tween = gsap.to(track, {
+      x: () => -dist(), ease: "none",
+      scrollTrigger: {
+        trigger: block, start: "center center", end: () => "+=" + dist(),
+        pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
+        onUpdate: self => gsap.set(bar.firstElementChild, { scaleX: self.progress })
+      }
+    });
+    const panels = track.querySelectorAll(":scope > div");
+    panels.forEach(panel => {
+      gsap.from(panel.querySelectorAll("dt, dd, .desc"), {
+        y: 40, autoAlpha: 0, stagger: 0.08, ease: "power2.out",
+        scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left 85%", end: "left 45%", scrub: true }
+      });
+    });
+    return () => { block.classList.remove("hscroll"); bar.hidden = true; gsap.set(track, { clearProps: "transform" }); };
+  });
+
+  // ---- marquee: velocity-reactive ----
+  const mqTrack = document.querySelector(".mq-track");
+  if (mqTrack) {
+    const loop = gsap.to(mqTrack, { xPercent: -50, duration: 50, ease: "none", repeat: -1 });
+    let dir = 1;
+    ScrollTrigger.create({
+      trigger: ".marquee", start: "top bottom", end: "bottom top",
+      onUpdate: self => {
+        dir = self.direction;
+        const boost = gsap.utils.clamp(1, 7, 1 + Math.abs(self.getVelocity()) / 400);
+        gsap.to(loop, { timeScale: dir * boost, duration: 0.2, overwrite: true,
+          onComplete: () => gsap.to(loop, { timeScale: dir, duration: 1.2, ease: "power2.out" }) });
+      }
+    });
+  }
+
+  // ---- product cards: subtle 3D tilt toward the pointer ----
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll(".port-card").forEach(card => {
+      gsap.set(card, { transformPerspective: 900 });
+      const rx = gsap.quickTo(card, "rotationX", { duration: 0.5, ease: "power3.out" });
+      const ry = gsap.quickTo(card, "rotationY", { duration: 0.5, ease: "power3.out" });
+      card.addEventListener("pointermove", e => {
+        const r = card.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - 0.5) * 7);
+        rx(-((e.clientY - r.top) / r.height - 0.5) * 7);
+      });
+      card.addEventListener("pointerleave", () => { rx(0); ry(0); });
+    });
+  }
+
+  // ---- stats: count up ----
+  const counts = { own: document.querySelectorAll("#portfolio .port-grid:not(.three) .port-card").length,
+                   client: document.querySelectorAll("#portfolio .port-grid.three .port-card").length };
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const key = el.dataset.count;
+    const target = counts[key] != null ? counts[key] : parseInt(key, 10);
+    el.textContent = target;
+    const o = { v: 0 };
+    gsap.to(o, {
+      v: target, duration: 1.8, ease: "expo.out",
+      scrollTrigger: { trigger: ".stats", start: "top 85%", once: true },
+      onUpdate: () => { el.textContent = Math.round(o.v); }
+    });
+  });
+  fadeUp(".stats > div", ".stats", { stagger: 0.1 });
+
+  // ---- footer: the earth rises again ----
+  gsap.fromTo(".foot-globe", { xPercent: -50, rotation: 30, yPercent: 22 }, {
+    xPercent: -50, rotation: 45, yPercent: 0, ease: "none",
+    scrollTrigger: { trigger: ".site-foot", start: "top bottom", end: "bottom bottom", scrub: 0.8 }
+  });
+
   // header progress
   gsap.to(".progress", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
 
@@ -1394,6 +1628,8 @@ tick(); setInterval(tick, 30000);
     .to({}, { duration: 0.06 }); // hold the final frame
 
   ScrollTrigger.addEventListener("refresh", render);
+  ScrollTrigger.sort();
+  ScrollTrigger.refresh();
 })();
 </script>
 </body>
