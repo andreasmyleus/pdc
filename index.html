@@ -134,8 +134,9 @@
       .site-head > :not(.progress) { opacity: 0; animation: fadeIn 0.9s 0.1s forwards ease-out; }
       .site-head {
         border-bottom: 1px solid transparent;
-        transition: background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out);
+        transition: background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out), transform 0.5s var(--ease-out);
       }
+      .site-head.tucked:not(:focus-within) { transform: translateY(-100%); }
       .site-head.scrolled {
         background-color: color-mix(in srgb, var(--bg) 85%, transparent);
         backdrop-filter: blur(18px) saturate(1.4);
@@ -379,7 +380,11 @@
       .sect-head {
         display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px;
         padding-bottom: 40px; margin-bottom: 48px;
-        border-bottom: 1px solid var(--line);
+        position: relative;
+      }
+      .sect-head::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line);
+        transform: scaleX(var(--draw, 1)); transform-origin: left;
       }
       .sect-num {
         font-family: var(--serif); font-style: italic;
@@ -485,7 +490,13 @@
       .orgno-copy svg { width: 12px; height: 12px; }
       .orgno-copy.copied { background: #4ade80; color: #0a0a0a; }
 
-      .inline-link { color: var(--fg); border-bottom: 1px solid var(--fg-faint); padding-bottom: 1px; transition: border-color 0.2s ease; }
+      .inline-link {
+        color: var(--fg); padding-bottom: 2px;
+        background:
+          linear-gradient(var(--fg), var(--fg)) left 100% / 0% 1px no-repeat,
+          linear-gradient(var(--fg-faint), var(--fg-faint)) left 100% / 100% 1px no-repeat;
+        transition: background-size 0.45s var(--ease-out);
+      }
 
       .about-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
 
@@ -508,6 +519,32 @@
         display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
         font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-faint);
       }
+
+      /* ============ GSAP-driven intro ============ */
+      html.cine .site-head > :not(.progress),
+      html.cine .nav-pills,
+      html.cine .hero-bottom { animation: none; opacity: 1; }
+      html.cine .site-head > :not(.progress),
+      html.cine .pill,
+      html.cine .hero-bottom > * { opacity: 0; }
+      html.cine .word-stack .row > span { animation: none; opacity: 1; transform: none; }
+      html.cine:not(.intro-ready) .word-stack { visibility: hidden; }
+      .word-stack .w { padding: 0.06em 0.14em 0.24em; margin: -0.06em -0.14em -0.24em; }
+
+      /* ============ Curtain (anchor transitions) ============ */
+      .curtain {
+        position: fixed; inset: 0; z-index: 35;
+        display: grid; place-items: center;
+        background: var(--bg);
+        opacity: 0; visibility: hidden; pointer-events: none;
+      }
+      .curtain-label {
+        font-family: var(--serif); font-style: italic; font-weight: 400;
+        font-size: clamp(48px, 8vw, 120px); letter-spacing: -0.02em; line-height: 1;
+        overflow: hidden; padding: 0.1em 0.15em 0.2em;
+      }
+      .curtain-label > span { display: inline-block; }
+      .curtain-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--gold); opacity: 0.6; transform: scaleX(0); }
 
       /* ============ Manifesto ============ */
       .manifesto { position: relative; z-index: 2; }
@@ -610,7 +647,7 @@
         .port-card:hover .plogo img { transform: scale(1.03); }
         .port-card:hover .go .arr { transform: translateX(4px); }
         .orgno-copy:hover { background: color-mix(in srgb, var(--fg) 85%, transparent); }
-        .inline-link:hover { border-bottom-color: var(--fg); }
+        .inline-link:hover { background-size: 100% 1px, 100% 1px; }
       }
 
       /* ============ Responsive ============ */
@@ -658,7 +695,8 @@
 </head>
 <body>
 
-<a class="skip" href="#main" data-i18n="aria.skip">Hoppa till innehållet</a>
+<a class="skip" href="#main" data-i18n="aria.skip" data-no-curtain>Hoppa till innehållet</a>
+<div class="curtain" aria-hidden="true"><span class="curtain-line"></span><span class="curtain-label"><span></span></span></div>
 
 <div class="bg" aria-hidden="true">
   <canvas class="stars" id="stars"></canvas>
@@ -1214,7 +1252,8 @@ function currentLang() {
 }
 
 function setLang(lang) {
-  applyLang(lang);
+  if (lang === currentLang()) return;
+  if (window.pdcLangSwap) window.pdcLangSwap(() => applyLang(lang)); else applyLang(lang);
   try { localStorage.setItem("pdc.lang", lang); } catch(e){}
 }
 
@@ -1249,7 +1288,15 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 // ============ Header state ============
 const head = document.getElementById("site-head");
-const onScroll = () => head.classList.toggle("scrolled", window.scrollY > window.innerHeight * 0.6);
+let lastY = window.scrollY;
+const onScroll = () => {
+  const y = window.scrollY;
+  head.classList.toggle("scrolled", y > window.innerHeight * 0.6);
+  if (Math.abs(y - lastY) > 6) {
+    head.classList.toggle("tucked", y > lastY && y > window.innerHeight * 1.2 && !head.dataset.hold);
+    lastY = y;
+  }
+};
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
@@ -1359,10 +1406,9 @@ tick(); setInterval(tick, 30000);
   }
   function splitChars(host) {
     const out = [];
-    host.childNodes.forEach(node => {
+    [...host.childNodes].forEach(node => {
       const text = node.textContent;
       const wrap = node.nodeType === 1 ? node : null;
-      const target = wrap || host;
       if (!wrap) node.textContent = ""; else wrap.textContent = "";
       const frag = document.createDocumentFragment();
       [...text].forEach(c => {
@@ -1439,6 +1485,74 @@ tick(); setInterval(tick, 30000);
       gsap.to(batch.map(c => c.querySelector(".plogo img")), { scale: 1, duration: 1.6, ease: EASE, stagger: 0.09, clearProps: "transform" });
     }
   });
+
+  // ---- hero → manifesto: Åland drifts up and dissolves ----
+  gsap.to(".hero-coords", {
+    y: -120, scale: 0.94, autoAlpha: 0, filter: "blur(8px)", ease: "power1.in",
+    scrollTrigger: { trigger: ".manifesto", start: "top bottom", end: "top 25%", scrub: 0.6 }
+  });
+  gsap.from(".manifesto .idx", {
+    autoAlpha: 0, y: 16, duration: 0.9, ease: EASE,
+    scrollTrigger: { trigger: ".manifesto", start: "top 60%", once: true }
+  });
+
+  // ---- section heads: rule draws in ----
+  document.querySelectorAll(".sect-head").forEach(h => {
+    gsap.fromTo(h, { "--draw": 0 }, {
+      "--draw": 1, duration: 1.4, ease: "expo.inOut",
+      scrollTrigger: { trigger: h, start: "top 80%", once: true }
+    });
+  });
+
+  // ---- anchor transitions: curtain instead of racing through the cinematic ----
+  const curtain = document.querySelector(".curtain");
+  const cLabel = curtain.querySelector(".curtain-label > span");
+  const cLine = curtain.querySelector(".curtain-line");
+  let curtainBusy = false;
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.hasAttribute("data-no-curtain") || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    const id = a.getAttribute("href").slice(1);
+    const target = id ? document.getElementById(id) : null;
+    if (!target || curtainBusy) return;
+    e.preventDefault();
+    curtainBusy = true;
+    const label = id === "top" ? "Peruna Deep Consulting" : (a.textContent || "").trim();
+    cLabel.textContent = label;
+    const y = id === "top" ? 0 : target.getBoundingClientRect().top + window.scrollY;
+    head.dataset.hold = "1"; head.classList.remove("tucked");
+    gsap.timeline({ defaults: { ease: "power3.inOut" }, onComplete: () => { curtainBusy = false; delete head.dataset.hold; } })
+      .set(curtain, { visibility: "visible" })
+      .fromTo(cLine, { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 0.45 }, 0)
+      .to(curtain, { opacity: 1, duration: 0.45 }, 0.05)
+      .fromTo(cLabel, { yPercent: 110 }, { yPercent: 0, duration: 0.6, ease: EASE }, 0.25)
+      .add(() => {
+        window.scrollTo({ top: Math.max(y, 0), behavior: "instant" });
+        ScrollTrigger.update();
+        history.pushState(null, "", "#" + id);
+        if (id !== "top") { target.setAttribute("tabindex", "-1"); target.focus({ preventScroll: true }); }
+      }, 0.75)
+      .to(cLabel, { yPercent: -110, duration: 0.5, ease: "power3.in" }, 0.95)
+      .to(cLine, { scaleX: 0, transformOrigin: "right", duration: 0.5 }, 1.0)
+      .to(curtain, { opacity: 0, duration: 0.6, ease: "power2.out" }, 1.1)
+      .set(curtain, { visibility: "hidden" });
+  });
+
+  // ---- language switch: crossfade visible copy ----
+  window.pdcLangSwap = swap => {
+    const vh = window.innerHeight;
+    const els = [...document.querySelectorAll("[data-i18n]")].filter(el => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < vh && r.width > 0 && getComputedStyle(el).opacity === "1";
+    });
+    gsap.to(els, {
+      opacity: 0, y: -4, duration: 0.14, ease: "power1.in", overwrite: true,
+      onComplete: () => {
+        swap();
+        gsap.fromTo(els, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: EASE, stagger: 0.008, clearProps: "transform" });
+      }
+    });
+  };
 
   // ---- manifesto: words light up as you scroll ----
   const manifesto = document.querySelector("[data-scrub-words]");
@@ -1571,17 +1685,17 @@ tick(); setInterval(tick, 30000);
   measure();
   window.addEventListener("resize", () => { measure(); render(); });
 
-  const st = { rise: 0, dive: 0 };
+  const st = { rise: 0, dive: 0, intro: 1 };
   const lerp = (a, b, t) => a + (b - a) * t;
   function render() {
-    const rot = lerp(45, 18, st.rise) - 8 * st.dive;
+    const rot = lerp(45, 18, st.rise) - 8 * st.dive + 14 * st.intro;
     const S = lerp(1, geo.s1, st.rise) * Math.pow(geo.zoom, st.dive);
     const rad = rot * Math.PI / 180, c = Math.cos(rad), s = Math.sin(rad);
     const px = STAR.x * geo.D * S, py = STAR.y * geo.D * S;
     const tx = -(px * c - py * s), ty = -(px * s + py * c);       // centre on Åland
     const k = gsap.parseEase("power2.inOut")(Math.min(st.dive * 1.6, 1));
     const x = lerp(0, tx, k);
-    const y = lerp(lerp(geo.y0, 0, st.rise), ty, k);
+    const y = lerp(lerp(geo.y0, 0, st.rise), ty, k) + st.intro * geo.vh * 0.45;
     globe.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${rot.toFixed(2)}deg) scale(${S.toFixed(4)})`;
     warp = Math.sin(Math.PI * Math.min(st.dive, 1)) * 0.9;
   }
@@ -1589,6 +1703,19 @@ tick(); setInterval(tick, 30000);
   render();
 
   const rows = gsap.utils.toArray(".word-stack .row");
+
+  // ---- load intro: chars rise out of masks, the earth glides up, UI follows ----
+  const titleChars = rows.map(r => splitChars(r.firstElementChild));
+  rows.forEach(r => r.firstElementChild.removeAttribute("aria-label"));
+  gsap.set(titleChars.flat(), { yPercent: 115 });
+  root.classList.add("intro-ready");
+  const intro = gsap.timeline({ delay: 0.15, defaults: { ease: EASE } });
+  intro.to(".site-head > :not(.progress)", { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, startAt: { y: -10 } }, 0)
+       .to(st, { intro: 0, duration: 2.4, ease: "expo.out", onUpdate: render }, 0)
+       .add(titleChars.map((chars, i) => gsap.to(chars, { yPercent: 0, duration: 1.3, stagger: 0.035, delay: i * 0.12 })), 0.2)
+       .to(".pill", { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.07, startAt: { y: 18 } }, 0.85)
+       .to(".hero-bottom > *", { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, startAt: { y: 12 } }, 1.1);
+
   const coordChars = [];
   document.querySelectorAll(".hero-coords .place, .hero-coords .ll").forEach(el => {
     const text = el.textContent; el.textContent = "";
