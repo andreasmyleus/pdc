@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  docker:
+    name: build and smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Build image
+        run: docker build -t pdc:ci .
+
+      - name: Check nginx configuration
+        run: docker run --rm pdc:ci nginx -t
+
+      - name: Start container and smoke-check
+        run: |
+          set -eu
+          docker rm -f pdc-ci >/dev/null 2>&1 || true
+          docker run -d --name pdc-ci -p 8080:8080 pdc:ci
+          cleanup() {
+            docker logs pdc-ci || true
+            docker rm -f pdc-ci >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+          ready=0
+          for _ in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8080/health | grep -q healthy; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          test "$ready" = "1"
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/)" = "200"
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/bastu.html)" = "200"
