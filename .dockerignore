@@ -1,0 +1,5 @@
+# The inbox webhook service is deployed separately (see inbox/README.md)
+# and must not be served as static files by the main site.
+inbox/
+.git/
+.github/
