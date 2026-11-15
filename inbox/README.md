@@ -1,17 +1,17 @@
 # pdc-inbox — ärendekorg via Resend
 
-Kunder mejlar t.ex. `fix@support.pdc.ax`. Resend tar emot mejlet (syns under
+Kunder mejlar `support@mail.pdc.ax`. Resend tar emot mejlet (syns under
 **Emails → Receiving** på https://resend.com/emails) och skickar en webhook hit.
 Tjänsten hämtar mejlets innehåll och skickar en avisering till dig, med
 `reply_to` satt till kunden så att du kan svara direkt från aviseringen.
 
 ```
-kund ──mejl──▶ Resend (MX på support.pdc.ax) ──webhook──▶ pdc-inbox (Fly) ──avisering──▶ NOTIFY_TO
+kund ──mejl──▶ Resend (MX på mail.pdc.ax) ──webhook──▶ pdc-inbox (Fly) ──avisering──▶ NOTIFY_TO
 ```
 
 ## Engångsuppsättning
 
-1. **Domän i Resend** – lägg till/verifiera `support.pdc.ax` (en subdomän, så att
+1. **Domän i Resend** – `mail.pdc.ax` (är den redan verifierad för sändning räcker det att slå på Receiving; subdomän så att
    vanlig e-post på `pdc.ax` inte påverkas). Slå på **Receiving** och lägg in
    MX-posten som Resend visar i DNS. Den måste ha lägst prioritet för subdomänen.
    Domänen behöver också vara verifierad för *sändning*, eftersom aviseringen
@@ -23,17 +23,17 @@ kund ──mejl──▶ Resend (MX på support.pdc.ax) ──webhook──▶ p
    fly secrets set \
      RESEND_API_KEY=re_... \
      NOTIFY_TO=din@adress.ax \
-     NOTIFY_FROM="PDC Ärenden <arenden@support.pdc.ax>"
+     NOTIFY_FROM="PDC Ärenden <arenden@mail.pdc.ax>"
    fly deploy
    ```
 3. **Webhook i Resend** – under Webhooks: endpoint
    `https://pdc-inbox.fly.dev/webhooks/resend`, event `email.received`.
    Kopiera signing secret (`whsec_...`) och kör
    `fly secrets set RESEND_WEBHOOK_SECRET=whsec_...`.
-4. Testa: skicka ett mejl till `fix@support.pdc.ax`.
+4. Testa: skicka ett mejl till `support@mail.pdc.ax`.
 
 `NOTIFY_TO` ska vara din vanliga brevlåda, inte en adress på
-`support.pdc.ax`. Tjänsten hoppar ändå över mejl från `NOTIFY_FROM` för att
+`mail.pdc.ax`. Tjänsten hoppar ändå över mejl från `NOTIFY_FROM` för att
 undvika loopar.
 
 ## Miljövariabler

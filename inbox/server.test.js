@@ -35,10 +35,10 @@ test("verifySignature rejects tampered body, wrong key and stale timestamp", () 
 
 test("buildNotification escapes HTML, strips newlines and sets reply_to", () => {
   const msg = buildNotification({
-    meta: { from: "Kund <kund@example.com>", to: ["fix@support.pdc.ax"], subject: "Trasig\r\nBcc: x@y <b>", attachments: [{ filename: "bild.png" }] },
+    meta: { from: "Kund <kund@example.com>", to: ["support@mail.pdc.ax"], subject: "Trasig\r\nBcc: x@y <b>", attachments: [{ filename: "bild.png" }] },
     content: { text: "Hej <script>alert(1)</script>" },
     notifyTo: "me@example.org, other@example.org",
-    notifyFrom: "Ärenden <arenden@support.pdc.ax>",
+    notifyFrom: "Ärenden <arenden@mail.pdc.ax>",
   });
   assert.deepEqual(msg.to, ["me@example.org", "other@example.org"]);
   assert.equal(msg.reply_to, "Kund <kund@example.com>");
@@ -60,9 +60,9 @@ test("handleEvent fetches content and sends notification", async () => {
       return path.startsWith("/emails/receiving/") ? { text: "Dörren går inte att låsa" } : { id: "sent" };
     },
   };
-  const config = { notifyTo: "me@example.org", notifyFrom: "arenden@support.pdc.ax" };
+  const config = { notifyTo: "me@example.org", notifyFrom: "arenden@mail.pdc.ax" };
   const result = await handleEvent(
-    { type: "email.received", data: { email_id: "abc", from: "kund@example.com", to: ["fix@support.pdc.ax"], subject: "Dörr" } },
+    { type: "email.received", data: { email_id: "abc", from: "kund@example.com", to: ["support@mail.pdc.ax"], subject: "Dörr" } },
     config,
     deps,
   );
@@ -74,9 +74,9 @@ test("handleEvent fetches content and sends notification", async () => {
 
 test("handleEvent ignores other events and own notifications", async () => {
   const deps = { resend: async () => assert.fail("should not call") };
-  const config = { notifyTo: "me@example.org", notifyFrom: "Ärenden <arenden@support.pdc.ax>" };
+  const config = { notifyTo: "me@example.org", notifyFrom: "Ärenden <arenden@mail.pdc.ax>" };
   assert.equal(await handleEvent({ type: "email.sent", data: {} }, config, deps), "ignored");
-  assert.equal(await handleEvent({ type: "email.received", data: { from: "arenden@support.pdc.ax" } }, config, deps), "skipped-own");
+  assert.equal(await handleEvent({ type: "email.received", data: { from: "arenden@mail.pdc.ax" } }, config, deps), "skipped-own");
 });
 
 test("HTTP: rejects unsigned, accepts signed, dedupes retries", async () => {
