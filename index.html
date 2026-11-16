@@ -76,7 +76,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" /></noscript>
     <script>
       // Progressive enhancement: the cinematic hero only runs with JS and motion allowed.
       (function () {
@@ -746,7 +747,7 @@
     <div class="hero-stage">
       <div class="earth" aria-hidden="true">
         <div class="earth-globe" id="globe">
-          <img class="earth-img" src="earth-night.jpg" alt="" width="2000" height="2000" decoding="async" fetchpriority="high" />
+          <img class="earth-img" src="earth-night-2000.webp" srcset="earth-night-1400.webp 1400w, earth-night-2000.webp 2000w" sizes="(max-width: 760px) 160vw, 100vw" alt="" width="2000" height="2000" decoding="async" fetchpriority="high" />
           <span class="aland-star"></span>
         </div>
       </div>
@@ -1019,7 +1020,7 @@
 
 <footer class="site-foot" id="contact">
   <div class="foot-earth" aria-hidden="true">
-    <div class="foot-globe"><img src="earth-night.jpg" alt="" width="2000" height="2000" loading="lazy" decoding="async" /><span class="aland-star"></span></div>
+    <div class="foot-globe"><img src="earth-night-2000.webp" srcset="earth-night-1400.webp 1400w, earth-night-2000.webp 2000w" sizes="(max-width: 760px) 160vw, 100vw" alt="" width="2000" height="2000" loading="lazy" decoding="async" /><span class="aland-star"></span></div>
   </div>
   <div class="foot-inner">
   <div class="foot-cta">
