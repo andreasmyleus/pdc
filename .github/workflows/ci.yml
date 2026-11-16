@@ -44,3 +44,17 @@ jobs:
           test "$ready" = "1"
           test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/)" = "200"
           test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/bastu.html)" = "200"
+
+  inbox:
+    name: inbox tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Run tests
+        working-directory: inbox
+        run: node --test
+
+      - name: Build image
+        run: docker build -t pdc-inbox:ci inbox
