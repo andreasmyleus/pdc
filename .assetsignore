@@ -8,3 +8,4 @@ fly.toml
 nginx.conf
 README.md
 TIMELOG.md
+worker.js
