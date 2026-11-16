@@ -37,13 +37,24 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
       "name": "Peruna Deep Consulting",
       "url": "https://pdc.ax/",
       "email": "info@pdc.ax",
       "description": "The company provides consulting, staffing, training and inspection services, primarily in the IT, engineering, aviation and diving industries.",
       "foundingDate": "2023-01-01",
-      "areaServed": "Global",
+      "image": "https://pdc.ax/pexels-alex-conchillos-3745234_medium.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Åland",
+        "addressCountry": "AX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 60.1,
+        "longitude": 19.9
+      },
+      "areaServed": ["Åland", "Finland", "Sweden", "Nordic countries"],
       "sameAs": [
         "https://www.linkedin.com/in/andreas-myleus/",
         "https://www.facebook.com/PerunaDeepConsulting"
@@ -288,6 +299,12 @@
         }
       }
 
+      .hero-tag {
+        margin-top: -28px; max-width: 36ch;
+        color: var(--fg-dim); font-size: clamp(15px, 1.5vw, 18px); line-height: 1.5;
+        text-wrap: balance;
+        opacity: 0; animation: fadeIn 0.9s 0.9s forwards ease-out;
+      }
       .nav-pills {
         display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
         opacity: 0; animation: fadeIn 0.9s 1.0s forwards ease-out;
@@ -525,6 +542,7 @@
       html.cine .site-head > :not(.progress),
       html.cine .nav-pills,
       html.cine .hero-bottom { animation: none; opacity: 1; }
+      html.cine .hero-tag { animation: none; }
       html.cine .site-head > :not(.progress),
       html.cine .pill,
       html.cine .hero-bottom > * { opacity: 0; }
@@ -666,6 +684,7 @@
         .hero-stage { padding-bottom: 24px; }
         .hero-center { gap: 32px; padding-bottom: 22vh; }
         .word-stack { font-size: clamp(56px, 18vw, 128px); }
+        .hero-tag { margin-top: -12px; padding: 0 var(--gutter); }
         .nav-pills { flex-direction: column; align-items: center; }
         .pill { padding: 12px 18px; width: 200px; text-align: center; }
         .hero-bottom { flex-direction: column; align-items: center; gap: 18px; text-align: center; }
@@ -689,7 +708,7 @@
       }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation: none !important; transition: none !important; }
-        .site-head > :not(.progress), .nav-pills, .hero-bottom, .word-stack .row > span { opacity: 1; transform: none; }
+        .site-head > :not(.progress), .hero-tag, .nav-pills, .hero-bottom, .word-stack .row > span { opacity: 1; transform: none; }
         .progress { display: none; }
       }
     </style>
@@ -741,6 +760,7 @@
           <span class="row"><span><b>D</b>eep</span></span>
           <span class="row"><span><b>C</b>onsulting</span></span>
         </h1>
+        <p class="hero-tag" data-i18n="hero.tag">Senior consulting in IT, engineering, aviation and diving. Based in Åland, working across the Nordics.</p>
         <nav class="nav-pills" data-i18n-aria-label="aria.sections" aria-label="Sections">
           <a class="pill" href="#services" data-i18n="nav.services">Services</a>
           <a class="pill" href="#portfolio" data-i18n="nav.products">Products</a>
@@ -1039,6 +1059,7 @@ const I18N = {
     "aria.skip": "Hoppa till innehållet",
     "aria.nav": "Huvudnavigation",
     "hero.scroll": "Scrolla",
+    "hero.tag": "Seniora konsulttjänster inom IT, teknik, flyg och dykning. Baserat på Åland, med uppdrag i hela Norden.",
     "foot.h": "Hör av dig",
     "stats.products": "Egna produkter",
     "stats.clients": "Kundprojekt",
@@ -1134,6 +1155,7 @@ const I18N = {
     "aria.skip": "Skip to content",
     "aria.nav": "Main navigation",
     "hero.scroll": "Scroll",
+    "hero.tag": "Senior consulting in IT, engineering, aviation and diving. Based in Åland, working across the Nordics.",
     "foot.h": "Get in touch",
     "stats.products": "Own products",
     "stats.clients": "Client projects",
@@ -1714,6 +1736,7 @@ tick(); setInterval(tick, 30000);
   intro.to(".site-head > :not(.progress)", { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, startAt: { y: -10 } }, 0)
        .to(st, { intro: 0, duration: 2.4, ease: "expo.out", onUpdate: render }, 0)
        .add(titleChars.map((chars, i) => gsap.to(chars, { yPercent: 0, duration: 1.3, stagger: 0.035, delay: i * 0.12 })), 0.2)
+       .to(".hero-tag", { autoAlpha: 1, y: 0, duration: 0.9, startAt: { y: 12 } }, 0.75)
        .to(".pill", { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.07, startAt: { y: 18 } }, 0.85)
        .to(".hero-bottom > *", { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, startAt: { y: 12 } }, 1.1);
 
@@ -1736,7 +1759,7 @@ tick(); setInterval(tick, 30000);
     onUpdate: render
   });
 
-  tl.to(".hero-bottom, .nav-pills", { autoAlpha: 0, y: -24, duration: 0.08, ease: "power1.in" }, 0)
+  tl.to(".hero-bottom, .hero-tag, .nav-pills", { autoAlpha: 0, y: -24, duration: 0.08, ease: "power1.in" }, 0)
     // camera pushes through the title
     .to(rows, {
       z: (i) => 380 + i * 140, yPercent: (i) => (i - 1) * 60,
