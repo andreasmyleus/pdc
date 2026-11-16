@@ -1,0 +1,10 @@
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+Dockerfile
+fly.toml
+nginx.conf
+README.md
+TIMELOG.md
